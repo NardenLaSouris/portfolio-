@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio</title>
+  <meta name="description" content="Portfolio — développeur web : projets, compétences, parcours et contact." />
+  <meta name="theme-color" content="#0b0d12" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/style.css" />
+  <script>
+    try {
+      const t = localStorage.getItem("theme");
+      if (t) document.documentElement.dataset.theme = t;
+    } catch {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Aller au contenu</a>
+
+  <header class="nav" id="top">
+    <div class="container nav__inner">
+      <a href="#top" class="brand" data-bind="initials" aria-label="Accueil"></a>
+      <nav aria-label="Navigation principale">
+        <ul class="nav__links" id="navLinks">
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#skills">Compétences</a></li>
+          <li><a href="#projects">Projets</a></li>
+          <li><a href="#experience">Parcours</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav__actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Changer de thème">
+          <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menuToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navLinks">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="container">
+        <p class="badge reveal" id="availability" hidden><span class="dot"></span> Disponible pour de nouveaux projets</p>
+        <h1 class="hero__title reveal">
+          Bonjour, je suis <span class="grad" data-bind="name"></span>
+        </h1>
+        <p class="hero__role reveal"><span class="mono">&gt;</span> <span id="typed" data-bind="role"></span><span class="caret" aria-hidden="true"></span></p>
+        <p class="hero__lead reveal" data-bind="tagline"></p>
+        <div class="hero__cta reveal">
+          <a class="btn btn--primary" href="#projects">Voir mes projets</a>
+          <a class="btn" href="#contact">Me contacter</a>
+          <a class="btn btn--ghost" id="cvLink" href="#" download hidden>Télécharger mon CV</a>
+        </div>
+        <ul class="socials reveal" id="heroSocials"></ul>
+      </div>
+    </section>
+
+    <!-- À PROPOS -->
+    <section id="about" class="section">
+      <div class="container about">
+        <div>
+          <h2 class="section__title reveal"><span class="mono">01.</span> À propos</h2>
+          <div id="aboutText" class="about__text reveal"></div>
+        </div>
+        <ul class="stats reveal" id="stats"></ul>
+      </div>
+    </section>
+
+    <!-- COMPÉTENCES -->
+    <section id="skills" class="section section--alt">
+      <div class="container">
+        <h2 class="section__title reveal"><span class="mono">02.</span> Compétences</h2>
+        <div class="skills" id="skillsGrid"></div>
+      </div>
+    </section>
+
+    <!-- PROJETS -->
+    <section id="projects" class="section">
+      <div class="container">
+        <h2 class="section__title reveal"><span class="mono">03.</span> Projets</h2>
+        <div class="filters reveal" id="filters" role="toolbar" aria-label="Filtrer les projets"></div>
+        <div class="projects" id="projectsGrid"></div>
+
+        <div class="gh" id="ghSection" hidden>
+          <h3 class="gh__title reveal">Derniers dépôts sur GitHub</h3>
+          <div class="projects projects--compact" id="ghGrid"></div>
+          <p class="gh__more"><a id="ghMore" class="link" href="#" target="_blank" rel="noopener">Voir tout sur GitHub →</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARCOURS -->
+    <section id="experience" class="section section--alt">
+      <div class="container">
+        <h2 class="section__title reveal"><span class="mono">04.</span> Parcours</h2>
+        <ol class="timeline" id="timeline"></ol>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="container contact">
+        <h2 class="section__title reveal"><span class="mono">05.</span> Contact</h2>
+        <p class="contact__lead reveal">Un projet, une opportunité ou simplement envie d'échanger ? Ma boîte mail est ouverte.</p>
+        <div class="contact__card reveal">
+          <a class="contact__email" id="emailLink" href="#"></a>
+          <button class="btn" id="copyEmail" type="button">Copier l'adresse</button>
+        </div>
+        <ul class="socials socials--center reveal" id="contactSocials"></ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>© <span id="year"></span> <span data-bind="name"></span>. Fait main, hébergé sur Clever Cloud.</p>
+      <a href="#top" class="link">Haut de page ↑</a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="/assets/config.js"></script>
+  <script src="/assets/app.js"></script>
+</body>
+</html>
