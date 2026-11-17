@@ -40,9 +40,10 @@
           <li><a href="#vision">Vision</a></li>
           <li><a href="#architecture">Architecture</a></li>
           <li><a href="#capacites">Capacités</a></li>
-          <li><a href="#control">ORION Control</a></li>
+          <li><a href="#control">Interfaces</a></li>
           <li><a href="#evolution">Évolution</a></li>
-          <li><a href="#infrastructure">Infrastructure</a></li>
+          <li><a href="#infrastructure">Infra</a></li>
+          <li><a href="#ambition">Ambition</a></li>
           <li class="nav__cta-item"><a href="index.html#projects" class="nav__cta">← Portfolio</a></li>
         </ul>
       </nav>
@@ -82,7 +83,7 @@
         <figure class="o-orbit reveal" aria-label="Les trois machines d'ORION autour de son Core">
           <div class="o-orbit__ring o-orbit__ring--1"><span class="o-orbit__node" style="--a:20deg"><b>PC portable</b><small>LLM · transcription</small></span></div>
           <div class="o-orbit__ring o-orbit__ring--2"><span class="o-orbit__node" style="--a:200deg"><b>PC fixe</b><small>micro · voix · Control</small></span></div>
-          <div class="o-orbit__ring o-orbit__ring--3"><span class="o-orbit__node o-orbit__node--dim" style="--a:120deg"><b>Terminal</b><small>expérimental</small></span></div>
+          <div class="o-orbit__ring o-orbit__ring--3"><span class="o-orbit__node o-orbit__node--dim" style="--a:120deg"><b>Terminal ORION OS</b><small>Android 13</small></span></div>
           <div class="o-orbit__core"><span>CORE</span><small>Linux · sans GPU</small></div>
         </figure>
       </div>
@@ -106,8 +107,10 @@
           <li><a href="#architecture"><span>2</span>Architecture</a></li>
           <li><a href="#capacites"><span>3</span>Capacités</a></li>
           <li><a href="#control"><span>4</span>ORION Control</a></li>
-          <li><a href="#evolution"><span>5</span>Évolution</a></li>
-          <li><a href="#infrastructure"><span>6</span>Infrastructure</a></li>
+          <li><a href="#terminal"><span>5</span>ORION OS</a></li>
+          <li><a href="#evolution"><span>6</span>Évolution</a></li>
+          <li><a href="#infrastructure"><span>7</span>Infrastructure</a></li>
+          <li><a href="#ambition"><span>8</span>Ambition</a></li>
         </ol>
       </div>
     </nav>
@@ -247,7 +250,7 @@
             <li><strong>Core</strong><span>Serveur Linux sans GPU. Orchestration, outils, modules, voix, mémoire, API, sauvegardes, modèle de secours.</span></li>
             <li><strong>PC portable</strong><span>GPU. Modèle de langage principal et transcription. Facultatif : sans lui, ORION passe en mode dégradé.</span></li>
             <li><strong>PC fixe</strong><span>Micro et haut-parleurs via un agent Windows, actions sur le PC, ORION Control.</span></li>
-            <li><strong>Terminal ORION OS</strong><span>Un téléphone appairé par TLS épinglé. Voit l'état, commande ses lumières, coupe l'écoute. Expérimental.</span></li>
+            <li><strong>Terminal ORION OS</strong><span>Un téléphone sous ORION OS, un système basé sur Android 13, appairé par TLS épinglé. Voit l'état, commande ses lumières, coupe l'écoute. Expérimental.</span></li>
           </ul>
         </div>
       </div>
@@ -416,6 +419,62 @@
       </div>
     </section>
 
+    <!-- ================= ORION OS ================= -->
+    <section id="terminal" class="section" aria-labelledby="terminal-title">
+      <div class="container o-os">
+        <div class="o-os__text">
+          <header class="section__head reveal">
+            <p class="eyebrow">Terminal</p>
+            <h2 class="section__title" id="terminal-title">ORION OS</h2>
+            <p class="section__lead">
+              Un système d'exploitation à part entière, développé sur la base d'Android 13, qui transforme un téléphone en
+              terminal d'ORION posé dans une pièce. Le premier tourne sur un Samsung Galaxy A20e reconverti.
+            </p>
+          </header>
+
+          <div class="o-os__cols reveal">
+            <div>
+              <h3>Ce que fait un terminal</h3>
+              <ul class="o-os__list">
+                <li>Affiche l'état d'ORION et ses notifications, en direct</li>
+                <li>Pilote les appareils qui lui sont attribués : lumières (luminosité, teinte), volume</li>
+                <li>Coupe l'écoute à la demande : le mode intimité tient après un redémarrage</li>
+                <li>N'exécute aucun modèle : toute l'intelligence reste sur le Core</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Comment il est sécurisé</h3>
+              <ul class="o-os__list">
+                <li>Appairage depuis ORION Control, par un code à usage unique valable 10 minutes</li>
+                <li>Preuve liée au certificat du Core, puis TLS épinglé : un faux Core est refusé</li>
+                <li>Jeton propre au terminal, gardé dans l'Android Keystore, révocable à tout moment</li>
+                <li>Droits vides par défaut ; il ne peut ni accorder une confirmation, ni réactiver l'autonomie</li>
+              </ul>
+            </div>
+          </div>
+          <p class="o-os__status reveal">
+            <span class="o-badge o-badge--prod">Côté Core en production</span>
+            <span class="o-badge o-badge--on">Téléphone expérimental</span>
+            Un terminal appairé, « BUREAU », depuis le 15 novembre 2026.
+          </p>
+        </div>
+
+        <figure class="o-phone reveal" aria-label="Schéma d'un terminal ORION OS">
+          <div class="o-phone__body">
+            <div class="o-phone__screen">
+              <p class="o-phone__name">BUREAU</p>
+              <p class="o-phone__state"><span class="dot"></span> ORION à l'écoute</p>
+              <div class="o-phone__tiles">
+                <span>Lumière 1</span><span>Lumière 2</span><span>Volume</span><span>Intimité</span>
+              </div>
+              <p class="o-phone__link">TLS épinglé · Core</p>
+            </div>
+          </div>
+          <figcaption>Schéma de principe, pas une capture de l'interface.</figcaption>
+        </figure>
+      </div>
+    </section>
+
     <!-- ================= ÉVOLUTION ================= -->
     <section id="evolution" class="section" aria-labelledby="evo-title">
       <div class="container">
@@ -507,6 +566,60 @@
             <li>la copie quotidienne des sauvegardes hors du Core (aujourd'hui hebdomadaire).</li>
           </ul>
         </aside>
+      </div>
+    </section>
+
+    <!-- ================= AMBITION ================= -->
+    <section id="ambition" class="section o-dark o-ambition" aria-labelledby="ambition-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Ambition</p>
+          <h2 class="section__title" id="ambition-title">Connecter toute la maison</h2>
+          <p class="section__lead">
+            Le cap d'ORION : un Core qui intègre le GPU, et autour de lui une constellation d'éléments reliés. Des satellites
+            pour lui parler depuis chaque pièce, plusieurs terminaux qui pilotent chacun les appareils qui leur sont attribués,
+            et les équipements de la maison. Une partie existe déjà ; le reste est la direction de travail.
+          </p>
+        </header>
+
+        <ul class="o-legend o-legend--sky reveal" aria-label="Légende de la constellation">
+          <li><span class="o-star o-star--live"></span> Déjà relié</li>
+          <li><span class="o-star o-star--study"></span> Étudié</li>
+          <li><span class="o-star o-star--goal"></span> Visé</li>
+        </ul>
+
+        <figure class="o-sky reveal" aria-label="La constellation d'ORION">
+          <svg class="o-sky__lines" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true" id="skyLines"></svg>
+          <ul class="o-sky__nodes" id="skyNodes">
+            <li class="o-sky__core" style="--x:50;--y:30"><b>CORE</b><small>GPU intégré · visé</small></li>
+            <li data-s="live" style="--x:22;--y:13"><b>PC fixe</b><small>agent, micro, voix</small></li>
+            <li data-s="live" style="--x:80;--y:12"><b>PC portable</b><small>GPU actuel : LLM, transcription</small></li>
+            <li data-s="live" style="--x:91;--y:34"><b>Terminal BUREAU</b><small>ORION OS</small></li>
+            <li data-s="live" style="--x:27;--y:45"><b>Lumières</b><small>pilotées en local</small></li>
+            <li data-s="live" style="--x:72;--y:46"><b>Présence</b><small>par le réseau</small></li>
+            <li data-s="live" style="--x:8;--y:33"><b>Consoles</b><small>PS5 allumée à la voix</small></li>
+            <li data-s="study" style="--x:38;--y:7"><b>Satellite audio</b><small>une pièce</small></li>
+            <li data-s="study" style="--x:62;--y:6"><b>Satellite audio</b><small>une autre pièce</small></li>
+            <li data-s="goal" style="--x:88;--y:50"><b>Terminaux</b><small>un par pièce</small></li>
+            <li data-s="goal" style="--x:48;--y:51"><b>Capteurs</b><small>portes, mouvements</small></li>
+            <li data-s="goal" style="--x:10;--y:49"><b>Équipements</b><small>de la maison</small></li>
+          </ul>
+        </figure>
+
+        <div class="o-ambition__cols">
+          <article class="reveal" style="--i:0">
+            <h3><span class="o-star o-star--goal"></span> Un Core avec GPU</h3>
+            <p>Aujourd'hui, le Core n'a pas de GPU : le modèle de langage et la transcription tournent sur le PC portable. Le but est de les rapatrier sur une seule machine permanente, pour qu'ORION ne dépende plus d'un ordinateur allumé à côté.</p>
+          </article>
+          <article class="reveal" style="--i:1">
+            <h3><span class="o-star o-star--study"></span> Des satellites dans chaque pièce</h3>
+            <p>Un petit appareil avec un micro et un haut-parleur, sans intelligence propre. L'étude d'octobre est faite et le protocole audio existe déjà ; il reste à choisir le matériel, gérer l'écho et désigner la pièce qui a entendu le mot de réveil.</p>
+          </article>
+          <article class="reveal" style="--i:2">
+            <h3><span class="o-star o-star--live"></span> Des terminaux multiples</h3>
+            <p>Chaque terminal ORION OS reçoit ses propres droits et ses appareils attribués. Le mécanisme est en place côté Core avec un premier terminal ; l'étape suivante est d'en installer un par pièce.</p>
+          </article>
+        </div>
       </div>
     </section>
 

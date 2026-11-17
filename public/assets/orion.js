@@ -216,6 +216,27 @@
     $("#controlShots").hidden = false;
   }
 
+  /* ---------- Constellation : liens du Core vers chaque élément ---------- */
+  const sky = $("#skyLines");
+  if (sky) {
+    const NS = "http://www.w3.org/2000/svg";
+    const core = $(".o-sky__core");
+    const cx = parseFloat(core.style.getPropertyValue("--x"));
+    const cy = parseFloat(core.style.getPropertyValue("--y"));
+    $$("#skyNodes li[data-s]").forEach((li) => {
+      const line = document.createElementNS(NS, "line");
+      line.setAttribute("x1", cx);
+      line.setAttribute("y1", cy);
+      line.setAttribute("x2", parseFloat(li.style.getPropertyValue("--x")));
+      line.setAttribute("y2", parseFloat(li.style.getPropertyValue("--y")));
+      line.setAttribute("class", `o-sky__line o-sky__line--${li.dataset.s}`);
+      line.setAttribute("vector-effect", "non-scaling-stroke");
+      sky.append(line);
+      // Étiquette du côté opposé au Core, pour que le lien n'arrive jamais à travers le texte.
+      if (parseFloat(li.style.getPropertyValue("--y")) < cy) li.classList.add("is-up");
+    });
+  }
+
   /* ---------- Thème ---------- */
   const root = document.documentElement;
   const themeBtn = $("#themeToggle");
