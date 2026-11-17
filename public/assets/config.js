@@ -7,7 +7,7 @@ window.PORTFOLIO = {
   role: "Développeur informatique",
   // Phrase d'accroche : factuelle, sans slogan
   tagline:
-    "Je développe des applications web, des API et des outils en ligne de commande. En ce moment, je construis ORION, un assistant vocal qui pilote ma maison sans passer par le cloud.",
+    "Je développe des applications web, des API et des outils en ligne de commande. En ce moment, je construis ORION, une assistante vocale qui pilote ma maison sans passer par le cloud.",
   location: "Nantes",
   available: true, // affiche le badge de disponibilité
   availabilityText: "Ouvert aux opportunités",
@@ -29,13 +29,13 @@ window.PORTFOLIO = {
 
   about: [
     "J'aime suivre un projet en entier, du schéma de la base de données jusqu'à la mise en ligne.",
-    "J'ai écrit des jeux en ligne de commande en Go et en TypeScript, et une application Express déployée sur Scalingo avec un camarade. Mon plus gros projet est ORION, un assistant vocal qui tourne sur trois machines de mon réseau.",
+    "J'ai écrit des jeux en ligne de commande en Go et en TypeScript, et une application Express déployée sur Scalingo avec un camarade. Mon plus gros projet est ORION, une assistante vocale qui tourne sur trois machines de mon réseau.",
   ],
 
   // Faits rapides (factuels uniquement)
   facts: [
     { label: "Langages", value: "Go · TypeScript · JavaScript · Python · SQL · HTML · CSS" },
-    { label: "En ce moment", value: "ORION, assistant vocal local" },
+    { label: "En ce moment", value: "ORION, assistante vocale locale" },
     { label: "Localisation", value: "Nantes" },
   ],
 
@@ -75,7 +75,7 @@ window.PORTFOLIO = {
         { name: "Ollama (LLM local)", where: "ORION" },
         { name: "faster-whisper", where: "ORION" },
         { name: "Piper (TTS)", where: "ORION" },
-        { name: "Cedar (politiques)", where: "ORION" },
+        { name: "Moteur de permissions", where: "ORION" },
         { name: "systemd", where: "ORION" },
       ],
     },
@@ -95,11 +95,12 @@ window.PORTFOLIO = {
   featured: {
     title: "O.R.I.O.N.",
     status: "Projet en cours",
-    subtitle: "Assistant vocal 100 % local",
+    subtitle: "Assistante personnelle 100 % locale",
+    caseStudy: "orion.html",
     problem:
-      "Les assistants vocaux du commerce traitent les demandes sur des serveurs distants. Je voulais un assistant qui pilote ma maison et mon PC sans que rien ne sorte de mon réseau, et dont je contrôle précisément les actions.",
+      "Les assistants vocaux du commerce traitent les demandes sur des serveurs distants. Je voulais une assistante qui pilote ma maison et mon PC sans que rien ne sorte de mon réseau, et dont je contrôle précisément les actions.",
     solution:
-      "On dit « Orion », il répond « Oui, monsieur ? », puis il comprend la demande et l'exécute. Le traitement est réparti sur trois machines : un mini-PC Linux qui orchestre, un PC portable équipé d'une RTX 4070 pour le modèle de langage, et mon PC principal comme terminal audio.",
+      "On dit « ORION », elle répond « Oui, monsieur ? », puis elle comprend la demande et l'exécute. Le traitement est réparti sur trois machines : un mini-PC Linux qui orchestre, un PC portable équipé d'une RTX 4070 pour le modèle de langage, et mon PC principal comme terminal audio.",
     pipeline: ["Mot de réveil", "Transcription", "Outil ou LLM", "Validation", "Réponse vocale"],
     machines: [
       { name: "Mini-PC Linux", role: "Orchestration, transcription, outils, synthèse vocale" },
@@ -107,13 +108,13 @@ window.PORTFOLIO = {
       { name: "PC principal", role: "Micro, haut-parleurs et actions sur le PC" },
     ],
     highlights: [
-      "Le LLM ne fait que proposer : chaque action passe par un Core qui valide, applique des politiques Cedar et demande confirmation si besoin. ORION n'exécute jamais de commande shell libre.",
-      "Commandes simples traitées sans LLM (0,2 ms au lieu de 0,5 à 1,4 s) : lumières, musique, minuteurs, rappels, agenda, météo.",
+      "Le LLM ne fait que proposer : chaque action passe par le Core, qui valide, vérifie les permissions et demande confirmation si besoin. ORION n'exécute jamais de commande shell libre.",
+      "Autonomie contrôlée : interrupteur, autorisations bornées et registre d'actions chaîné. Les initiatives de ses modules (bulletins NEWS, alertes) y sont soumises.",
       "Si le PC avec le GPU est éteint, les commandes simples marchent toujours et un petit modèle de secours prend le relais pour la conversation.",
-      "Voix Piper entraînée sur mesure, contexte conversationnel, mémoire explicite, routines programmées.",
-      "Autres briques : un visage animé, l'application ORION Control, un agent Windows et une application mobile.",
+      "En production depuis le 4 novembre 2026 (V3) : déploiement scripté avec contrôle de santé, sauvegardes vérifiées chaque nuit, plus de 5 100 tests.",
+      "ORION Control, une application Windows de 26 pages, pour superviser ce qu'elle fait et régler ce qu'elle a le droit de faire.",
     ],
-    tags: ["Python", "Ollama", "faster-whisper", "Piper", "Cedar", "Expo / React Native", "Linux", "systemd"],
+    tags: ["Python", "Ollama", "faster-whisper", "Piper", "SQLite", "Expo / React Native", "Linux", "systemd"],
     repo: "", // dépôt privé
     demo: "",
   },

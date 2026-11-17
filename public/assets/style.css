@@ -368,7 +368,13 @@ ul, ol { list-style: none; }
 .featured__list li::before { content: ""; position: absolute; left: 2px; top: 0.62em; width: 7px; height: 7px; transform: rotate(45deg); background: var(--gold); }
 .featured__foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 18px; padding-top: 24px; border-top: 1px solid rgba(244, 239, 228, 0.12); }
 .featured .chips li { background: rgba(134, 161, 139, 0.16); border-color: rgba(134, 161, 139, 0.32); color: var(--cream); }
-.featured__links { display: flex; flex-wrap: wrap; gap: 10px; }
+.featured__links { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.btn--gold {
+  background: var(--gold); color: #1a1c1b; border-color: var(--gold);
+  box-shadow: 0 10px 26px -12px rgba(196, 169, 106, 0.7);
+}
+.btn--gold span { transition: transform 0.25s var(--ease); }
+@media (hover: hover) { .btn--gold:hover { border-color: #d6bf86; background: #d1b679; } .btn--gold:hover span { transform: translateX(3px); } }
 .private { display: inline-flex; align-items: center; gap: 8px; font-size: 0.86rem; color: rgba(244, 239, 228, 0.6); }
 
 /* ---------- Chips & tags ---------- */

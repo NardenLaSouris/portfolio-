@@ -92,7 +92,10 @@
       el("ul", { class: "featured__list" }, (f.highlights || []).map((h) => el("li", {}, h))),
       el("div", { class: "featured__foot" },
         tagList(f.tags, "chips"),
-        links.length ? el("div", { class: "featured__links" }, links) : el("span", { class: "private", html: `${ICONS.lock} Code privé` }))
+        el("div", { class: "featured__links" },
+          f.caseStudy ? el("a", { class: "btn btn--gold", href: f.caseStudy }, "Découvrir ORION", el("span", { "aria-hidden": "true" }, "→")) : null,
+          links,
+          links.length ? null : el("span", { class: "private", html: `${ICONS.lock} Code privé` })))
     );
     box.hidden = false;
   }

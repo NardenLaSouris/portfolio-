@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ORION — Étude de cas | Jules NEVEU</title>
+  <meta name="description" content="ORION, l'assistante personnelle locale développée par Jules NEVEU : architecture, autonomie contrôlée, ORION Control, trois générations et infrastructure de production." />
+  <meta name="author" content="Jules NEVEU" />
+  <meta name="theme-color" content="#1A1C1B" />
+  <meta name="color-scheme" content="dark light" />
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="Jules NEVEU" />
+  <meta property="og:title" content="ORION — une assistante personnelle locale" />
+  <meta property="og:description" content="Architecture, autonomie contrôlée, supervision et infrastructure d'une assistante qui tourne sur trois machines de la maison." />
+  <meta property="og:image" content="/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Michroma&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/style.css" />
+  <link rel="stylesheet" href="/assets/orion.css" />
+  <script>
+    try {
+      const t = localStorage.getItem("theme");
+      if (t) document.documentElement.dataset.theme = t;
+    } catch {}
+  </script>
+</head>
+<body class="orion-page">
+  <a class="skip" href="#main">Aller au contenu</a>
+  <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+
+  <header class="nav" id="top">
+    <div class="container nav__inner">
+      <a href="index.html" class="brand" aria-label="Jules NEVEU — accueil du portfolio">JN</a>
+      <nav aria-label="Navigation de l'étude de cas">
+        <ul class="nav__links" id="navLinks">
+          <li><a href="#vision">Vision</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#capacites">Capacités</a></li>
+          <li><a href="#control">ORION Control</a></li>
+          <li><a href="#evolution">Évolution</a></li>
+          <li><a href="#infrastructure">Infrastructure</a></li>
+          <li class="nav__cta-item"><a href="index.html#projects" class="nav__cta">← Portfolio</a></li>
+        </ul>
+      </nav>
+      <div class="nav__actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Passer au thème clair">
+          <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menuToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navLinks">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path class="l1" d="M4 7h16"/><path class="l2" d="M4 12h16"/><path class="l3" d="M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ================= HERO ================= -->
+    <section class="o-hero" aria-labelledby="o-title">
+      <div class="o-hero__bg" aria-hidden="true"></div>
+      <div class="container o-hero__grid">
+        <div class="o-hero__text">
+          <p class="o-status reveal"><span class="dot"></span> V3 en production depuis le 4 novembre 2026 · clôture en cours</p>
+          <h1 class="o-hero__title reveal" id="o-title">ORION</h1>
+          <p class="o-hero__tagline reveal" lang="en">More than an assistant. A system designed to understand, assist and act.</p>
+          <p class="o-hero__lead reveal">
+            ORION est une assistante personnelle qui tourne chez moi, sur trois machines de mon réseau. Elle écoute, comprend
+            la demande, s'appuie sur des modules spécialisés et agit sur la maison et sur mes ordinateurs, dans un cadre
+            que je contrôle : chaque action passe par un moteur de permissions, et toute initiative de sa part est inscrite
+            dans un registre.
+          </p>
+          <div class="o-hero__cta reveal">
+            <a class="btn btn--primary" href="#architecture">Voir son architecture</a>
+            <a class="btn" href="index.html#contact">En parler avec moi</a>
+          </div>
+        </div>
+
+        <figure class="o-orbit reveal" aria-label="Les trois machines d'ORION autour de son Core">
+          <div class="o-orbit__ring o-orbit__ring--1"><span class="o-orbit__node" style="--a:20deg"><b>PC portable</b><small>LLM · transcription</small></span></div>
+          <div class="o-orbit__ring o-orbit__ring--2"><span class="o-orbit__node" style="--a:200deg"><b>PC fixe</b><small>micro · voix · Control</small></span></div>
+          <div class="o-orbit__ring o-orbit__ring--3"><span class="o-orbit__node o-orbit__node--dim" style="--a:120deg"><b>Terminal</b><small>expérimental</small></span></div>
+          <div class="o-orbit__core"><span>CORE</span><small>Linux · sans GPU</small></div>
+        </figure>
+      </div>
+
+      <div class="container">
+        <dl class="o-figures reveal" aria-label="ORION en chiffres, relevés de novembre 2026">
+          <div><dt>Démarrage</dt><dd>24 sept. 2026</dd></div>
+          <div><dt>Code</dt><dd>≈ 66 000 lignes</dd></div>
+          <div><dt>Tests automatiques</dt><dd>5 100+</dd></div>
+          <div><dt>Modules sur le socle</dt><dd>16</dd></div>
+          <div><dt>Pages d'ORION Control</dt><dd>26</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Sous-navigation de l'étude de cas -->
+    <nav class="o-steps" aria-label="Parcours de l'étude de cas">
+      <div class="container">
+        <ol id="oSteps">
+          <li><a href="#vision"><span>1</span>Philosophie</a></li>
+          <li><a href="#architecture"><span>2</span>Architecture</a></li>
+          <li><a href="#capacites"><span>3</span>Capacités</a></li>
+          <li><a href="#control"><span>4</span>ORION Control</a></li>
+          <li><a href="#evolution"><span>5</span>Évolution</a></li>
+          <li><a href="#infrastructure"><span>6</span>Infrastructure</a></li>
+        </ol>
+      </div>
+    </nav>
+
+    <!-- ================= VISION ================= -->
+    <section id="vision" class="section" aria-labelledby="vision-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Vision et philosophie</p>
+          <h2 class="section__title" id="vision-title">Pourquoi ORION existe</h2>
+          <p class="section__lead">
+            Je voulais une assistante qui ne se contente pas de répondre : elle doit pouvoir agir sur mon environnement,
+            sans que mes demandes sortent de chez moi, et sans jamais agir hors du cadre que je lui donne.
+          </p>
+        </header>
+
+        <div class="o-principles">
+          <article class="o-principle reveal" style="--i:0">
+            <h3>Intelligence</h3>
+            <p>Elle comprend des phrases libres en français, garde le fil d'une courte conversation et choisit l'outil adapté à la demande.</p>
+            <ul>
+              <li>Modèle de langage local, avec un modèle de secours</li>
+              <li>Commandes simples reconnues sans passer par le LLM</li>
+              <li>Le LLM propose une action en JSON validé, il ne l'exécute pas</li>
+            </ul>
+          </article>
+          <article class="o-principle reveal" style="--i:1">
+            <h3>Modularité</h3>
+            <p>Ses capacités sont réparties en modules qui partagent un socle commun : base de données, planificateur, alertes, historique.</p>
+            <ul>
+              <li>Chaque module se construit, démarre et échoue sans entraîner les autres</li>
+              <li>Chaque module a sa section dans ORION Control</li>
+              <li>Un module inactif ne crée rien, pas même sa base</li>
+            </ul>
+          </article>
+          <article class="o-principle reveal" style="--i:2">
+            <h3>Autonomie contrôlée</h3>
+            <p>Certains modules peuvent prendre l'initiative. Ce qu'ils ont le droit de faire est décidé par des règles écrites dans le code, pas par le LLM.</p>
+            <ul>
+              <li>Interrupteur : active, suspendue, arrêt d'urgence</li>
+              <li>Capacités sensibles soumises à ma confirmation</li>
+              <li>Chaque décision inscrite dans un registre chaîné</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="o-compare reveal">
+          <h3 class="o-compare__title">Ce qui la distingue d'une assistante conversationnelle</h3>
+          <div class="o-compare__table" role="table" aria-label="Comparaison">
+            <div class="o-compare__row o-compare__row--head" role="row">
+              <span role="columnheader"></span>
+              <span role="columnheader">Assistante conversationnelle</span>
+              <span role="columnheader">ORION</span>
+            </div>
+            <div class="o-compare__row" role="row">
+              <span role="rowheader">Résultat</span>
+              <span role="cell">Une réponse écrite ou parlée</span>
+              <span role="cell">Une action réelle : lumières, musique, PC, rappels, agenda, mails</span>
+            </div>
+            <div class="o-compare__row" role="row">
+              <span role="rowheader">Traitement</span>
+              <span role="cell">Sur des serveurs distants</span>
+              <span role="cell">Sur trois machines de la maison</span>
+            </div>
+            <div class="o-compare__row" role="row">
+              <span role="rowheader">Initiative</span>
+              <span role="cell">Attend qu'on lui parle</span>
+              <span role="cell">Bulletins, alertes et surveillances, soumis à des permissions</span>
+            </div>
+            <div class="o-compare__row" role="row">
+              <span role="rowheader">Contrôle</span>
+              <span role="cell">Réglages du fournisseur</span>
+              <span role="cell">Interrupteur d'autonomie, autorisations bornées, registre vérifiable</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ARCHITECTURE ================= -->
+    <section id="architecture" class="section o-dark" aria-labelledby="archi-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Architecture technique</p>
+          <h2 class="section__title" id="archi-title">Comment ses composants travaillent ensemble</h2>
+          <p class="section__lead">Cliquez sur un composant pour voir son rôle, ou suivez le trajet d'une demande vocale, du mot de réveil à la réponse.</p>
+        </header>
+
+        <div class="o-arch reveal">
+          <div class="o-arch__diagram" id="archDiagram">
+            <div class="o-arch__lane o-arch__lane--in">
+              <span class="o-arch__lane-label">Entrée</span>
+              <button class="o-node" data-node="wake" type="button"><b>WAKE WORD</b><small>Détection d'« ORION »</small></button>
+              <button class="o-node" data-node="stt" type="button"><b>STT</b><small>Reconnaissance vocale</small></button>
+            </div>
+            <div class="o-arch__lane o-arch__lane--core">
+              <span class="o-arch__lane-label">Décision</span>
+              <button class="o-node o-node--core" data-node="core" type="button"><b>CORE</b><small>Orchestration et règles</small></button>
+              <button class="o-node" data-node="llm" type="button"><b>LLM</b><small>Compréhension, choix d'outil</small></button>
+              <button class="o-node o-node--gate" data-node="autonomy" type="button"><b>AUTONOMY</b><small>Permissions et registre</small></button>
+            </div>
+            <div class="o-arch__lane o-arch__lane--out">
+              <span class="o-arch__lane-label">Action</span>
+              <button class="o-node" data-node="modules" type="button"><b>MODULES</b><small>Outils et capacités</small></button>
+              <button class="o-node" data-node="tts" type="button"><b>TTS</b><small>Synthèse vocale</small></button>
+            </div>
+            <button class="o-node o-node--base" data-node="infra" type="button"><b>INFRASTRUCTURE</b><small>Machines, services, sauvegardes, supervision</small></button>
+          </div>
+
+          <aside class="o-arch__panel" id="archPanel" aria-live="polite">
+            <p class="o-arch__kicker" id="archKicker">Composant</p>
+            <h3 id="archTitle">CORE</h3>
+            <p id="archText"></p>
+            <dl class="o-arch__meta" id="archMeta"></dl>
+            <div class="o-arch__actions">
+              <button class="btn btn--sm o-trace-btn" id="traceBtn" type="button">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+                <span>Suivre une demande</span>
+              </button>
+            </div>
+          </aside>
+        </div>
+
+        <ol class="o-trace reveal" id="traceSteps" aria-label="Trajet d'une demande">
+          <li data-node="wake">« ORION » est détecté, puis vérifié une seconde fois</li>
+          <li data-node="stt">La phrase est transcrite sur le GPU</li>
+          <li data-node="core">Le Core cherche d'abord une commande simple</li>
+          <li data-node="llm">Sinon, le LLM propose un outil et ses paramètres</li>
+          <li data-node="autonomy">Règles, permissions et confirmation si besoin</li>
+          <li data-node="modules">L'outil s'exécute</li>
+          <li data-node="tts">Elle répond à voix haute, phrase par phrase</li>
+        </ol>
+
+        <div class="o-machines reveal">
+          <h3 class="sub-title">Répartition sur les machines</h3>
+          <ul>
+            <li><strong>Core</strong><span>Serveur Linux sans GPU. Orchestration, outils, modules, voix, mémoire, API, sauvegardes, modèle de secours.</span></li>
+            <li><strong>PC portable</strong><span>GPU. Modèle de langage principal et transcription. Facultatif : sans lui, ORION passe en mode dégradé.</span></li>
+            <li><strong>PC fixe</strong><span>Micro et haut-parleurs via un agent Windows, actions sur le PC, ORION Control.</span></li>
+            <li><strong>Terminal ORION OS</strong><span>Un téléphone appairé par TLS épinglé. Voit l'état, commande ses lumières, coupe l'écoute. Expérimental.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CAPACITÉS ================= -->
+    <section id="capacites" class="section" aria-labelledby="cap-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Fonctionnalités</p>
+          <h2 class="section__title" id="cap-title">Ce qu'elle sait faire, et où chaque capacité en est</h2>
+          <p class="section__lead">Chaque capacité porte son état réel, tiré de la matrice de validation du projet (16 novembre 2026).</p>
+        </header>
+
+        <ul class="o-legend reveal" aria-label="Légende des états">
+          <li><span class="o-badge o-badge--prod">En production</span> utilisée au quotidien</li>
+          <li><span class="o-badge o-badge--on">Activée</span> en service, usage réel encore à constater</li>
+          <li><span class="o-badge o-badge--sandbox">Bac à sable</span> simulée par conception</li>
+        </ul>
+
+        <div class="o-caps">
+          <article class="o-cap reveal" style="--i:0">
+            <header><h3>Interaction vocale</h3><span class="o-badge o-badge--prod">En production</span></header>
+            <ul>
+              <li>Mot de réveil « ORION » entraîné sur mesure, confirmé par une seconde vérification</li>
+              <li>Transcription par faster-whisper sur GPU, repli sur le processeur du Core</li>
+              <li>Réponse diffusée en flux du LLM vers la voix, sans attendre la fin du texte</li>
+              <li>Quelques secondes d'écoute après la réponse pour une relance</li>
+            </ul>
+            <p class="o-cap__note">En cours : la détection de fin de parole coupe encore certaines phrases longues.</p>
+          </article>
+
+          <article class="o-cap reveal" style="--i:1">
+            <header><h3>Intelligence locale</h3><span class="o-badge o-badge--prod">En production</span></header>
+            <ul>
+              <li>Qwen3 8B via Ollama sur le GPU du PC portable, Qwen2.5 3B en secours sur le Core</li>
+              <li>Bascule automatique vers le secours, retour seul quand le GPU revient</li>
+              <li>Commandes simples traitées sans LLM : 0,2 ms au lieu de 0,5 à 1,4 s</li>
+              <li>Choix d'outil par le vrai LLM : 86,7 % de réussite au banc du 17 novembre</li>
+            </ul>
+          </article>
+
+          <article class="o-cap reveal" style="--i:2">
+            <header><h3>Architecture modulaire</h3><span class="o-badge o-badge--prod">En production</span></header>
+            <ul>
+              <li>16 modules sur un socle commun (<code>orion/platform</code>)</li>
+              <li>Registre des modules : ordre des dépendances, cycles refusés, module en échec isolé</li>
+              <li>Machines d'état déclarées : un passage non prévu est refusé</li>
+              <li>Outils vocaux enregistrés seulement si leur module est actif</li>
+            </ul>
+          </article>
+
+          <article class="o-cap reveal" style="--i:3">
+            <header><h3>NEWS</h3><span class="o-badge o-badge--prod">En production</span></header>
+            <ul>
+              <li>32 sources réelles collectées, dédoublonnées et regroupées par événement</li>
+              <li>Un événement est « confirmé » avec une source officielle ou deux sources indépendantes fiables</li>
+              <li>Bulletins programmés à 8 h et 20 h</li>
+              <li>Alertes spontanées, renouvelées seulement si l'événement évolue vraiment</li>
+            </ul>
+            <p class="o-cap__note">Seuils de gravité encore en calibrage sur les vraies actualités.</p>
+          </article>
+
+          <article class="o-cap o-cap--wide reveal" style="--i:0">
+            <header><h3>AUTONOMY</h3><span class="o-badge o-badge--prod">En production</span></header>
+            <div class="o-cap__cols">
+              <ul>
+                <li>Interrupteur à trois états : active, suspendue, arrêt d'urgence</li>
+                <li>On peut la restreindre à la voix ; la réactiver demande ORION Control et une phrase exacte</li>
+                <li>Autorisations bornées : échéance, plafond, nombre par jour, appareils</li>
+                <li>Registre en ajout seul, chaîné par SHA-256, vérifiable depuis ORION Control</li>
+              </ul>
+              <div class="o-principals">
+                <p class="o-principals__title">Qui demande l'action ?</p>
+                <dl>
+                  <dt><code>user</code></dt><dd>Ma demande, à la voix</dd>
+                  <dt><code>admin</code></dt><dd>Une action depuis ORION Control</dd>
+                  <dt><code>delegated</code></dt><dd>Ce que j'ai programmé : routine, surveillance, mandat</dd>
+                  <dt><code>module</code></dt><dd>Une initiative d'un module, la plus encadrée</dd>
+                </dl>
+                <p class="o-principals__foot">En cas de doute ou d'erreur du moteur, la réponse est un refus.</p>
+              </div>
+            </div>
+            <p class="o-cap__note">Suspension et arrêt d'urgence sont couverts par 77 tests, mais n'ont pas encore été déclenchés en réel.</p>
+          </article>
+
+
+          <article class="o-cap reveal" style="--i:5">
+            <header><h3>WATCH</h3><span class="o-badge o-badge--on">Activée</span></header>
+            <ul>
+              <li>Surveillances persistantes, reprogrammées après un redémarrage</li>
+              <li>Conditions structurées et validées, jamais du code</li>
+              <li>Fiabilité minimale de la source exigée pour déclencher</li>
+              <li>Alerte selon la présence : voix à la maison, message écrit sinon</li>
+            </ul>
+            <p class="o-cap__note">Aucune source de prix réelle n'est encore branchée : pas de surveillance en usage.</p>
+          </article>
+
+          <article class="o-cap reveal" style="--i:6">
+            <header><h3>SENTINEL</h3><span class="o-badge o-badge--prod">En production</span></header>
+            <ul>
+              <li>Sonde chaque minute les ressources dont elle dépend</li>
+              <li>Ouvre et ferme les incidents, calcule la disponibilité sur 7 jours</li>
+              <li>N'annonce une panne qu'au-delà de 2 minutes</li>
+            </ul>
+          </article>
+
+          <article class="o-cap reveal" style="--i:7">
+            <header><h3>EVOLVE</h3><span class="o-badge o-badge--on">Activée</span></header>
+            <ul>
+              <li>Repère des anomalies dans son propre fonctionnement et les diagnostique</li>
+              <li>Prépare un correctif dans un clone isolé, testé avant toute proposition</li>
+              <li>Ne déploie jamais : ce niveau est refusé par conception</li>
+            </ul>
+            <p class="o-cap__note">Aucun correctif réel validé à ce jour ; mode autonome coupé pendant la clôture de V3.</p>
+          </article>
+
+          <article class="o-cap reveal" style="--i:8">
+            <header><h3>PURCHASE</h3><span class="o-badge o-badge--sandbox">Bac à sable</span></header>
+            <ul>
+              <li>Achats conditionnels sous mandat, avec vérification stricte et révocation</li>
+              <li>Paiement simulé, imposé par le code ; acheter ne se fait jamais à la voix</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ORION CONTROL ================= -->
+    <section id="control" class="section section--alt" aria-labelledby="control-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Supervision</p>
+          <h2 class="section__title" id="control-title">ORION Control</h2>
+          <p class="section__lead">
+            L'application de pilotage d'ORION, sur le PC fixe : une fenêtre Windows reliée au Core par une API protégée
+            (adresse autorisée et jeton). On y voit ce qu'elle fait, ce qu'elle a décidé, et on y règle ce qu'elle a le droit de faire.
+          </p>
+        </header>
+
+        <div class="o-control reveal">
+          <div class="o-control__main">
+          <div class="o-window">
+            <div class="o-window__bar"><span></span><span></span><span></span><p>ORION Control · 26 pages</p></div>
+            <div class="o-window__body">
+              <nav class="o-window__nav" id="controlNav" aria-label="Pages d'ORION Control"></nav>
+              <div class="o-window__view" id="controlView" aria-live="polite"></div>
+            </div>
+          </div>
+          <p class="o-window__note">Plan de navigation interactif, reconstitué à partir du code de l'application (noms et descriptions réels des pages). Ce n'est pas une capture d'écran.</p>
+          </div>
+
+          <ul class="o-control__points">
+            <li><strong>État de l'assistante</strong><span>Tableau de bord : ce qui demande votre attention et ce qui est prévu.</span></li>
+            <li><strong>Contrôle de l'autonomie</strong><span>Interrupteur, confirmations en attente, autorisations, intégrité du registre.</span></li>
+            <li><strong>Registre et historique</strong><span>Ce que les routines et les outils ont réellement fait, dans l'ordre.</span></li>
+            <li><strong>Santé des services</strong><span>SENTINEL et le matériel : ressources, incidents, disques.</span></li>
+            <li><strong>Jetons du LLM</strong><span>Lus et générés, mesurés à chaque appel et écrits au journal du Core ; pas encore affichés dans ORION Control.</span></li>
+          </ul>
+        </div>
+
+        <div class="o-shots" id="controlShots" hidden>
+          <h3 class="sub-title">Captures de l'application</h3>
+          <div class="o-shots__grid" id="controlShotsGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ÉVOLUTION ================= -->
+    <section id="evolution" class="section" aria-labelledby="evo-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Évolution du projet</p>
+          <h2 class="section__title" id="evo-title">Trois générations en deux mois</h2>
+          <p class="section__lead">Chaque version est partie de la précédente sans la réécrire. Les dates viennent de l'historique Git.</p>
+        </header>
+
+        <ol class="o-gens">
+          <li class="o-gen reveal" style="--i:0">
+            <div class="o-gen__head">
+              <span class="o-gen__v">V1</span>
+              <div><h3>Expérimentation</h3><p class="o-gen__date">24 → 26 septembre 2026</p></div>
+              <span class="o-badge o-badge--done">Terminée</span>
+            </div>
+            <p>Les fondations, sous le nom de JARVIS : un mot de réveil français entraîné sur mesure avec openWakeWord, la voix, et une première chaîne écoute → compréhension → réponse.</p>
+          </li>
+          <li class="o-gen reveal" style="--i:1">
+            <div class="o-gen__head">
+              <span class="o-gen__v">V2</span>
+              <div><h3>Stabilisation</h3><p class="o-gen__date">2 octobre → 2 novembre 2026 · tag <code>v2.0.0</code></p></div>
+              <span class="o-badge o-badge--done">Remplacée par V3</span>
+            </div>
+            <p>Outils sécurisés, agents Windows et audio à distance, LLM sur GPU avec secours, lumières, musique, mails, appels, routines, mémoire explicite, premier ORION Control. JARVIS devient ORION, avec sa propre voix et son mot de réveil.</p>
+            <ul class="o-gen__decisions">
+              <li><strong>Le LLM propose, le Core décide.</strong> Aucun shell, aucune commande libre.</li>
+              <li><strong>Mesurer avant de corriger.</strong> Un contexte trop court tronquait le prompt sans prévenir : corrigé, le choix d'outil passe de 1,2–1,7 s à 0,63–0,71 s.</li>
+              <li><strong>Durcir l'exécution.</strong> Compte système dédié, code en lecture seule, couverture de tests à 86 %.</li>
+            </ul>
+          </li>
+          <li class="o-gen o-gen--current reveal" style="--i:2">
+            <div class="o-gen__head">
+              <span class="o-gen__v">V3</span>
+              <div><h3>Architecture évoluée</h3><p class="o-gen__date">Depuis le 2 novembre 2026 · en production depuis le 4 novembre</p></div>
+              <span class="o-badge o-badge--prod">En production</span>
+            </div>
+            <p>Un socle commun pour les modules, l'autonomie contrôlée, le registre d'actions, les données personnelles chiffrées, NEWS, WATCH, SENTINEL, EVOLVE et un ORION Control de 26 pages.</p>
+            <ul class="o-gen__decisions">
+              <li><strong>Échec sûr.</strong> Une erreur du moteur de permissions vaut un refus.</li>
+              <li><strong>Données extérieures = données non fiables.</strong> Articles et pages ne sont jamais suivis comme des instructions.</li>
+              <li><strong>Vérifier sous le service.</strong> Une mesure faite à la main ne prouve rien pour le service durci.</li>
+            </ul>
+            <p class="o-gen__now">Clôture en cours : derniers essais en réel, puis sept jours d'observation sans incident.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= INFRASTRUCTURE ================= -->
+    <section id="infrastructure" class="section o-dark" aria-labelledby="infra-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Infrastructure et fiabilité</p>
+          <h2 class="section__title" id="infra-title">Un service exploité, pas un script lancé à la main</h2>
+          <p class="section__lead">ORION tourne en continu sur une machine dédiée. Son déploiement, sa supervision et ses sauvegardes sont outillés et documentés.</p>
+        </header>
+
+        <div class="o-deploy reveal">
+          <h3 class="sub-title">Un déploiement, étape par étape</h3>
+          <ol>
+            <li><b>Tests</b><span>Suite complète sur le Core, jamais pendant la sauvegarde de nuit</span></li>
+            <li><b>Avance rapide</b><span>Un commit qui ne descend pas de la version en place est refusé</span></li>
+            <li><b>Pré-vol</b><span>Le nouveau code compile et accepte la vraie configuration</span></li>
+            <li><b>Sauvegarde</b><span>Données copiées et vérifiées avant toute coupure</span></li>
+            <li><b>Redémarrage</b><span>Coupure d'environ 20 secondes</span></li>
+            <li><b>Contrôle de santé</b><span>Service actif, modules démarrés, aucune erreur</span></li>
+            <li><b>Retour auto</b><span>En cas d'échec, l'ancien code est remis en place</span></li>
+          </ol>
+        </div>
+
+        <div class="o-infra">
+          <article class="reveal" style="--i:0"><h3>Service durci</h3><p>Compte dédié sans privilège, code et configuration en lecture seule, écriture limitée au dossier des données, règles réseau propres au service.</p></article>
+          <article class="reveal" style="--i:1"><h3>Watchdog et relance</h3><p>Sans signal de vie pendant 90 s, systemd arrête et relance le service. Au-delà de 5 échecs en 15 minutes, une alerte part.</p></article>
+          <article class="reveal" style="--i:2"><h3>Health checks</h3><p>Un contrôle de santé externe toutes les 2 minutes, et SENTINEL qui sonde chaque ressource toutes les minutes.</p></article>
+          <article class="reveal" style="--i:3"><h3>Sauvegardes</h3><p>Chaque nuit, bases copiées à chaud et vérifiées (SHA-256, intégrité SQLite). Rotation : 14 quotidiennes, 8 hebdomadaires, 12 mensuelles, plus une copie hors du Core.</p></article>
+          <article class="reveal" style="--i:4"><h3>Données chiffrées</h3><p>Trois bases selon la sensibilité des données ; la base personnelle est chiffrée et sa clé n'est jamais copiée avec les sauvegardes.</p></article>
+          <article class="reveal" style="--i:5"><h3>Tests</h3><p>Plus de 5 100 tests automatiques. Dernière suite complète relevée : 4 983 réussis, 0 échec.</p></article>
+        </div>
+
+        <aside class="o-unproven reveal" aria-labelledby="unproven-title">
+          <h3 id="unproven-title">Ce qui n'est pas encore prouvé</h3>
+          <p>La documentation d'exploitation sépare ce qui a été constaté de ce qui est seulement écrit. Restent à jouer en réel pendant la clôture :</p>
+          <ul>
+            <li>une restauration complète depuis une sauvegarde ;</li>
+            <li>un retour arrière volontaire du Core ;</li>
+            <li>un redémarrage complet de la machine ;</li>
+            <li>la suspension et l'arrêt d'urgence de l'autonomie ;</li>
+            <li>la copie quotidienne des sauvegardes hors du Core (aujourd'hui hebdomadaire).</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ================= CTA ================= -->
+    <section class="section o-end" aria-labelledby="end-title">
+      <div class="container o-end__inner reveal">
+        <h2 class="section__title" id="end-title">Parlons de son architecture</h2>
+        <p class="section__lead">Le dépôt d'ORION est privé. Je présente volontiers son code, ses choix techniques et ORION Control en entretien ou en démonstration.</p>
+        <div class="o-hero__cta">
+          <a class="btn btn--primary" href="index.html#contact">Me contacter</a>
+          <a class="btn" href="index.html#projects">Retour aux projets</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>© <span id="year"></span> Jules NEVEU · ORION est un projet personnel</p>
+      <a href="#top" class="link-arrow">Haut de page <span aria-hidden="true">↑</span></a>
+    </div>
+  </footer>
+
+  <script src="/assets/orion.js" defer></script>
+</body>
+</html>
