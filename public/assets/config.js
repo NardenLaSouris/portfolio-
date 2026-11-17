@@ -7,7 +7,7 @@ window.PORTFOLIO = {
   role: "Développeur informatique",
   // Phrase d'accroche : factuelle, sans slogan
   tagline:
-    "Je développe des applications web, des outils en ligne de commande et des systèmes qui tournent en local — de l'API Express déployée en continu jusqu'à ORION, un assistant vocal qui pilote ma maison sans passer par le cloud.",
+    "Je développe des applications web, des API et des outils en ligne de commande. En ce moment, je construis ORION, un assistant vocal qui pilote ma maison sans passer par le cloud.",
   location: "France",
   available: true, // affiche le badge de disponibilité
   availabilityText: "Ouvert aux opportunités",
@@ -28,8 +28,8 @@ window.PORTFOLIO = {
   ],
 
   about: [
-    "Je suis développeur et j'aime comprendre un système de bout en bout : la donnée, la logique, l'interface, puis le déploiement.",
-    "Mes projets vont de jeux en ligne de commande en Go et TypeScript à une API Express livrée en intégration continue, jusqu'à ORION, un assistant vocal local réparti sur trois machines de mon réseau. J'y applique les mêmes principes : un code structuré, des choix techniques justifiés et des fonctionnalités qui marchent vraiment.",
+    "J'aime suivre un projet en entier, du schéma de la base de données jusqu'à la mise en ligne.",
+    "J'ai écrit des jeux en ligne de commande en Go et en TypeScript, et une application Express déployée sur Scalingo avec un camarade. Mon plus gros projet est ORION, un assistant vocal qui tourne sur trois machines de mon réseau.",
   ],
 
   // Faits rapides (factuels uniquement)
@@ -97,9 +97,9 @@ window.PORTFOLIO = {
     status: "Projet en cours",
     subtitle: "Assistant vocal 100 % local",
     problem:
-      "Les assistants vocaux du commerce traitent les demandes sur des serveurs distants. Je voulais un assistant qui pilote ma maison et mon PC en gardant tout sur mon réseau, avec un contrôle strict de ce qu'il a le droit d'exécuter.",
+      "Les assistants vocaux du commerce traitent les demandes sur des serveurs distants. Je voulais un assistant qui pilote ma maison et mon PC sans que rien ne sorte de mon réseau, et dont je contrôle précisément les actions.",
     solution:
-      "On dit « Orion », il répond « Oui, monsieur ? », comprend la demande et agit. Le traitement est réparti sur trois machines : un mini-PC Linux qui orchestre, un PC portable équipé d'une RTX 4070 pour le modèle de langage, et mon PC principal comme terminal audio.",
+      "On dit « Orion », il répond « Oui, monsieur ? », puis il comprend la demande et l'exécute. Le traitement est réparti sur trois machines : un mini-PC Linux qui orchestre, un PC portable équipé d'une RTX 4070 pour le modèle de langage, et mon PC principal comme terminal audio.",
     pipeline: ["Mot de réveil", "Transcription", "Outil ou LLM", "Validation", "Réponse vocale"],
     machines: [
       { name: "Mini-PC Linux", role: "Orchestration, transcription, outils, synthèse vocale" },
@@ -107,11 +107,11 @@ window.PORTFOLIO = {
       { name: "PC principal", role: "Micro, haut-parleurs et actions sur le PC" },
     ],
     highlights: [
-      "Le LLM ne fait que proposer : chaque action passe par un Core qui valide, applique des politiques Cedar et demande confirmation si besoin. Aucun shell, aucune commande libre.",
+      "Le LLM ne fait que proposer : chaque action passe par un Core qui valide, applique des politiques Cedar et demande confirmation si besoin. ORION n'exécute jamais de commande shell libre.",
       "Commandes simples traitées sans LLM (0,2 ms au lieu de 0,5 à 1,4 s) : lumières, musique, minuteurs, rappels, agenda, météo.",
-      "Mode dégradé si le GPU est hors ligne : commandes simples sans LLM, conversation par un modèle local de secours.",
+      "Si le PC avec le GPU est éteint, les commandes simples marchent toujours et un petit modèle de secours prend le relais pour la conversation.",
       "Voix Piper entraînée sur mesure, contexte conversationnel, mémoire explicite, routines programmées.",
-      "Autour du Core : visage animé, application ORION Control, agent Windows et application mobile.",
+      "Autres briques : un visage animé, l'application ORION Control, un agent Windows et une application mobile.",
     ],
     tags: ["Python", "Ollama", "faster-whisper", "Piper", "Cedar", "Expo / React Native", "Linux", "systemd"],
     repo: "", // dépôt privé
@@ -121,13 +121,13 @@ window.PORTFOLIO = {
   // Projets principaux : contexte + réalisation
   projects: [
     {
-      title: "TODO App — atelier CI/CD",
+      title: "TODO App (atelier CI/CD)",
       kind: "Application web · projet en binôme",
       category: "Web",
       problem:
-        "Atelier fil conducteur : livrer une application web en partant de zéro jusqu'à un déploiement continu sur un hébergeur cloud.",
+        "Atelier fil conducteur en binôme : créer une application web et la déployer en continu sur un hébergeur cloud.",
       solution:
-        "Back-end Express servant une interface HTML/CSS/JS, route de santé /api/health pour vérifier l'API, configuration par variables d'environnement et déploiement sur Scalingo. Un module de connexion PostgreSQL est prêt pour conserver les tâches.",
+        "Un serveur Express sert l'interface en HTML/CSS/JS et expose /api/health pour vérifier que l'API répond. La configuration passe par des variables d'environnement et l'application tourne sur Scalingo. La connexion à PostgreSQL est écrite mais pas encore branchée.",
       tags: ["Node.js", "Express", "PostgreSQL", "JavaScript", "Scalingo"],
       repo: "https://github.com/NardenLaSouris/ATELIER-FIL-CONDUCTEUR---TODO-APP",
       demo: "",
@@ -137,9 +137,9 @@ window.PORTFOLIO = {
       kind: "Jeu en ligne de commande",
       category: "Jeux",
       problem:
-        "Concevoir un jeu complet en programmation orientée objet, avec des règles de combat cohérentes et des classes bien séparées.",
+        "Exercice de programmation orientée objet : écrire un jeu de combat complet en TypeScript.",
       solution:
-        "Équipe de 3 aventuriers parmi 6 classes aux actions spécifiques (soin, magie, vol, attaque de zone, berserk), donjon de 5 salles avec combats, coffres piégés et boss final, ordre des tours basé sur la vitesse et inventaire partagé.",
+        "Le joueur choisit 3 aventuriers parmi 6 classes, chacune avec son action (soin, magie, vol, attaque de zone, berserk). Il traverse un donjon de 5 salles : combats, coffres parfois piégés, puis un boss. La vitesse décide de l'ordre des tours et l'inventaire est commun à l'équipe.",
       tags: ["TypeScript", "Deno", "POO"],
       repo: "https://github.com/NardenLaSouris/Projet_RPG_TypeScript",
       demo: "",
@@ -152,7 +152,7 @@ window.PORTFOLIO = {
       title: "Hangman Classic",
       category: "Jeux",
       description:
-        "Jeu du pendu en Go : dictionnaires par difficulté, lettres en art ASCII, relance de partie et ébauche de mode multijoueur avec Firebase.",
+        "Le jeu du pendu en Go, avec trois niveaux de difficulté et des lettres en art ASCII. Un mode multijoueur avec Firebase est commencé.",
       tags: ["Go", "Firebase"],
       repo: "https://github.com/NardenLaSouris/Hangman-classic",
     },
@@ -160,7 +160,7 @@ window.PORTFOLIO = {
       title: "Projet Red",
       category: "Jeux",
       description:
-        "Jeu de combat au tour par tour en Go : monstres générés aléatoirement, potions, marchand, forgeron et livre de sorts.",
+        "Un jeu de combat au tour par tour en Go, avec des monstres tirés au hasard, des potions, un marchand, un forgeron et un livre de sorts.",
       tags: ["Go"],
       repo: "https://github.com/NardenLaSouris/Projet-red",
     },
@@ -168,7 +168,7 @@ window.PORTFOLIO = {
       title: "GalaxiEat",
       category: "Données",
       description:
-        "Modélisation d'une base de données pour une chaîne de restaurants : 7 tables liées (restaurants, employés, plats, ingrédients, commandes).",
+        "La base de données d'une chaîne de restaurants : 7 tables reliées entre elles (restaurants, employés, plats, ingrédients, commandes).",
       tags: ["SQL", "SQLite"],
       repo: "https://github.com/NardenLaSouris/GalaxiEat",
     },
@@ -176,7 +176,7 @@ window.PORTFOLIO = {
       title: "Ce portfolio",
       category: "Web",
       description:
-        "HTML, CSS et JavaScript sans framework, contenu piloté par un seul fichier de configuration, servi par un serveur Node.js sans dépendance sur Clever Cloud.",
+        "Ce site, écrit en HTML, CSS et JavaScript sans framework. Tout le contenu tient dans un fichier de configuration et un petit serveur Node.js le sert sur Clever Cloud.",
       tags: ["HTML", "CSS", "JavaScript", "Node.js"],
       repo: "https://github.com/NardenLaSouris/portfolio-",
     },
