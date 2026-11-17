@@ -4,16 +4,17 @@ Portfolio personnel en HTML / CSS / JavaScript (sans framework), servi par un pe
 
 ## Fonctionnalités
 
-- Sections : accueil, à propos, compétences, projets (avec filtres), parcours, contact
-- Dépôts GitHub publics chargés automatiquement
-- Charte visuelle Aureon (vert forêt, vert secondaire, crème, doré, noir profond ; titres en Michroma)
-- Projet phare O.R.I.O.N. mis en avant
-- Thème clair / sombre (mémorisé), responsive, animations discrètes, accessible
-- Page 404, endpoint `/health`, en-têtes de sécurité
+- Sections : accueil, profil, projets, compétences, parcours, contact
+- Projet phare O.R.I.O.N. (problème, solution, architecture), projets principaux (contexte / réalisation) et secondaires, filtres par catégorie
+- Autres dépôts GitHub publics chargés automatiquement (liste d'exclusion dans la config)
+- Palette : vert forêt `#0F3D2E`, vert sauge `#86A18B`, charbon `#1A1C1B`, crème `#F4EFE4`, or sauvage `#C4A96A` ; titres en Michroma
+- Thème clair / sombre (mémorisé), responsive (mobile, tablette, desktop), animations discrètes qui respectent « réduire les animations »
+- SEO : balises Open Graph, image de partage, données structurées, `robots.txt`
+- Serveur : compression gzip, page 404, endpoint `/health`, en-têtes de sécurité
 
 ## Personnaliser
 
-Tout le contenu est dans **`public/assets/config.js`** : nom, rôle, e-mail, réseaux, compétences, projets, parcours.
+Tout le contenu est dans **`public/assets/config.js`** : nom, rôle, accroche, e-mail, réseaux, compétences, projets, parcours.
 Pour ajouter un CV, dépose `cv.pdf` dans `public/assets/` et mets `cv: "/assets/cv.pdf"`.
 
 ## Lancer en local

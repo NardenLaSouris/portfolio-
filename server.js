@@ -3,6 +3,7 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const zlib = require("zlib");
 
 const PORT = process.env.PORT || 8080;
 const ROOT = path.join(__dirname, "public");
@@ -21,12 +22,15 @@ const TYPES = {
   ".pdf": "application/pdf",
   ".txt": "text/plain; charset=utf-8",
   ".woff2": "font/woff2",
+  ".xml": "application/xml; charset=utf-8",
 };
+const COMPRESSIBLE = new Set([".html", ".css", ".js", ".json", ".svg", ".txt", ".xml"]);
 
 const SECURITY_HEADERS = {
   "X-Content-Type-Options": "nosniff",
   "X-Frame-Options": "DENY",
   "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
 };
 
 function send(res, status, body, type) {
@@ -65,13 +69,22 @@ const server = http.createServer((req, res) => {
         );
       }
       const ext = path.extname(filePath).toLowerCase();
-      const cache =
-        ext === ".html" ? "no-cache" : "public, max-age=604800";
-      res.writeHead(200, {
+      // HTML, CSS et JS sont revalidés à chaque visite pour voir les mises à jour aussitôt ;
+      // images et polices restent en cache une semaine.
+      const cache = [".html", ".css", ".js"].includes(ext) ? "no-cache" : "public, max-age=604800";
+      const headers = {
         "Content-Type": TYPES[ext] || "application/octet-stream",
         "Cache-Control": cache,
+        Vary: "Accept-Encoding",
         ...SECURITY_HEADERS,
-      });
+      };
+      const gzip = COMPRESSIBLE.has(ext) && /\bgzip\b/.test(req.headers["accept-encoding"] || "");
+      if (gzip) {
+        data = zlib.gzipSync(data);
+        headers["Content-Encoding"] = "gzip";
+      }
+      headers["Content-Length"] = data.length;
+      res.writeHead(200, headers);
       res.end(req.method === "HEAD" ? undefined : data);
     });
   });
