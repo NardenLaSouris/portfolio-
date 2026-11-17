@@ -42,3 +42,27 @@ clever deploy
 ```
 
 Ensuite, ajoute ton nom de domaine dans l'onglet **Domain names** de l'application.
+
+## Préproduction
+
+Deux branches, deux applications Clever Cloud :
+
+| Branche   | Application Clever Cloud | Rôle |
+|-----------|--------------------------|------|
+| `preprod` | `portfolio-preprod`      | Vérifier les changements avant la mise en ligne |
+| `main`    | `portfolio`              | Site public |
+
+Mise en place (une seule fois) :
+
+1. Console Clever Cloud → **Create** → **an application** → **Node.js**, relie le même dépôt GitHub, branche **`preprod`**.
+2. Dans **Environment variables** de cette application, ajoute `SITE_ENV` = `preprod`, puis redéploie.
+   Le site affiche alors un bandeau « Pré-production » et demande aux moteurs de recherche de ne pas l'indexer.
+
+Cycle de travail :
+
+1. Les modifications sont poussées sur `preprod` → vérification sur l'adresse `…cleverapps.io` de la préprod.
+2. Une fois validées, on fusionne `preprod` dans `main` → le site public se met à jour.
+
+```bash
+git checkout main && git merge --ff-only preprod && git push origin main
+```

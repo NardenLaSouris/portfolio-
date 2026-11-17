@@ -9,6 +9,24 @@ const PORT = process.env.PORT || 8080;
 // Version des fichiers CSS/JS, différente à chaque déploiement : ajoutée aux liens des pages HTML
 // (?v=...), elle oblige les navigateurs à recharger les fichiers au lieu d'utiliser une ancienne copie.
 const VERSION = Date.now().toString(36);
+// Préproduction : SITE_ENV=preprod (variable d'environnement de l'application Clever Cloud).
+// Affiche un bandeau sur chaque page et demande aux moteurs de recherche de ne pas indexer le site.
+const PREPROD = process.env.SITE_ENV === "preprod";
+const BANNER =
+  '<div style="position:fixed;left:12px;bottom:12px;z-index:9999;padding:6px 12px;border-radius:8px;' +
+  'background:#c4a96a;color:#1a1c1b;font:600 12px/1.4 system-ui,sans-serif;letter-spacing:.06em;' +
+  'text-transform:uppercase;box-shadow:0 4px 14px rgba(0,0,0,.35);pointer-events:none">Pré-production</div>';
+
+// Prépare une page HTML : version des fichiers CSS/JS et, en préproduction, bandeau + noindex.
+function prepareHtml(buf) {
+  let html = buf.toString("utf8").replace(/(\/assets\/[\w.-]+\.(?:css|js))(?=")/g, `$1?v=${VERSION}`);
+  if (PREPROD) {
+    html = html
+      .replace("<head>", '<head>\n  <meta name="robots" content="noindex, nofollow" />')
+      .replace("</body>", `${BANNER}\n</body>`);
+  }
+  return Buffer.from(html);
+}
 const ROOT = path.join(__dirname, "public");
 
 const TYPES = {
@@ -30,6 +48,7 @@ const TYPES = {
 const COMPRESSIBLE = new Set([".html", ".css", ".js", ".json", ".svg", ".txt", ".xml"]);
 
 const SECURITY_HEADERS = {
+  ...(PREPROD ? { "X-Robots-Tag": "noindex, nofollow" } : {}),
   "X-Content-Type-Options": "nosniff",
   "X-Frame-Options": "DENY",
   "Referrer-Policy": "strict-origin-when-cross-origin",
@@ -53,6 +72,10 @@ const server = http.createServer((req, res) => {
     return send(res, 400, "Bad Request", "text/plain; charset=utf-8");
   }
 
+  if (PREPROD && urlPath === "/robots.txt") {
+    return send(res, 200, "User-agent: *\nDisallow: /\n", "text/plain; charset=utf-8");
+  }
+
   if (urlPath === "/health") {
     return send(res, 200, "ok", "text/plain; charset=utf-8");
   }
@@ -68,12 +91,12 @@ const server = http.createServer((req, res) => {
     fs.readFile(filePath, (readErr, data) => {
       if (readErr) {
         return fs.readFile(path.join(ROOT, "404.html"), (e404, page) =>
-          send(res, 404, e404 ? "Not Found" : page.toString("utf8").replace(/(\/assets\/[\w.-]+\.(?:css|js))(?=")/g, `$1?v=${VERSION}`), "text/html; charset=utf-8")
+          send(res, 404, e404 ? "Not Found" : prepareHtml(page), "text/html; charset=utf-8")
         );
       }
       const ext = path.extname(filePath).toLowerCase();
       if (ext === ".html") {
-        data = Buffer.from(data.toString("utf8").replace(/(\/assets\/[\w.-]+\.(?:css|js))(?=")/g, `$1?v=${VERSION}`));
+        data = prepareHtml(data);
       }
       // HTML, CSS et JS sont revalidés à chaque visite pour voir les mises à jour aussitôt ;
       // images et polices restent en cache une semaine.
