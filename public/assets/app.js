@@ -106,7 +106,7 @@
     if (!C.github) return;
     const section = $("#ghSection");
     const grid = $("#ghGrid");
-    const count = C.githubRepoCount || 6;
+    const count = matchMedia("(max-width: 760px)").matches ? Math.min(C.githubRepoCount || 6, 4) : C.githubRepoCount || 6;
     section.hidden = false;
     $("#ghMore").href = `https://github.com/${C.github}?tab=repositories`;
     grid.append(...Array.from({ length: Math.min(count, 3) }, () => el("div", { class: "project skeleton" })));
@@ -180,7 +180,11 @@
   const setMenu = (open) => {
     navLinks.classList.toggle("open", open);
     menuBtn.setAttribute("aria-expanded", String(open));
+    menuBtn.setAttribute("aria-label", open ? "Fermer le menu" : "Ouvrir le menu");
+    document.body.classList.toggle("menu-open", open);
   };
+  addEventListener("keydown", (e) => e.key === "Escape" && setMenu(false));
+  matchMedia("(min-width: 761px)").addEventListener("change", (e) => e.matches && setMenu(false));
   menuBtn.addEventListener("click", () => setMenu(!navLinks.classList.contains("open")));
   navLinks.addEventListener("click", (e) => e.target.closest("a") && setMenu(false));
 
