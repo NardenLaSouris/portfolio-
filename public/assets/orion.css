@@ -55,7 +55,8 @@ code { font-family: var(--mono); font-size: 0.88em; padding: 1px 6px; border-rad
 .o-status .dot { background: var(--gold); animation-name: pulse-gold; }
 .o-hero__title {
   margin-top: 26px; font-family: var(--display); font-weight: 400;
-  font-size: clamp(3rem, 10.5vw, 7rem); letter-spacing: 0.2em; line-height: 1;
+  font-size: clamp(3rem, 10.5vw, 5.75rem); letter-spacing: 0.2em; line-height: 1;
+  width: fit-content; max-width: 100%;
   background: linear-gradient(120deg, var(--cream) 35%, var(--gold) 110%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
