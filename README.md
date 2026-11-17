@@ -1,4 +1,4 @@
-# Portfolio
+# Portfolio — Jules NEVEU
 
 Portfolio personnel en HTML / CSS / JavaScript (sans framework), servi par un petit serveur Node.js **sans aucune dépendance**, prêt à être déployé sur [Clever Cloud](https://www.clever-cloud.com/).
 
@@ -6,6 +6,8 @@ Portfolio personnel en HTML / CSS / JavaScript (sans framework), servi par un pe
 
 - Sections : accueil, à propos, compétences, projets (avec filtres), parcours, contact
 - Dépôts GitHub publics chargés automatiquement
+- Charte visuelle Aureon (vert forêt, vert secondaire, crème, doré, noir profond ; titres en Michroma)
+- Projet phare O.R.I.O.N. mis en avant
 - Thème clair / sombre (mémorisé), responsive, animations discrètes, accessible
 - Page 404, endpoint `/health`, en-têtes de sécurité
 

@@ -33,7 +33,7 @@
   $$("[data-bind]").forEach((n) => {
     const key = n.dataset.bind;
     if (key === "initials") {
-      n.textContent = `<${(C.name || "P").slice(0, 2)} />`;
+      n.textContent = (C.name || "P").split(/\s+/).map((w) => w[0]).join("").toUpperCase();
     } else if (C[key]) n.textContent = C[key];
   });
   $("#year").textContent = new Date().getFullYear();
@@ -76,11 +76,31 @@
     return card;
   };
 
+  const f = C.featured;
+  if (f) {
+    const box = $("#featured");
+    const links = el("div", { class: "featured__links" });
+    if (f.repo) links.append(el("a", { class: "btn", href: f.repo, target: "_blank", rel: "noopener", html: `${ICONS.github}<span>Code source</span>` }));
+    if (f.demo) links.append(el("a", { class: "btn", href: f.demo, target: "_blank", rel: "noopener", html: `${ICONS.link}<span>Démo</span>` }));
+    box.append(
+      el("div", { class: "featured__head" },
+        el("span", { class: "status" }, el("span", { class: "dot" }), f.status || "En cours"),
+        el("h3", { class: "featured__title" }, f.title),
+        f.subtitle ? el("p", { class: "featured__subtitle" }, f.subtitle) : ""),
+      el("p", { class: "featured__desc" }, f.description),
+      el("ul", { class: "featured__list" }, (f.highlights || []).map((h) => el("li", {}, h))),
+      el("ul", { class: "chips" }, (f.tags || []).map((t) => el("li", { class: "chip" }, t))),
+      links
+    );
+    if (!links.childElementCount) links.remove();
+    box.hidden = false;
+  }
+
   const projects = C.projects || [];
   $("#projectsGrid").append(...projects.map((p) => projectCard(p)));
 
   const allTags = [...new Set(projects.flatMap((p) => p.tags || []))];
-  if (allTags.length > 1) {
+  if (projects.length > 2 && allTags.length > 1) {
     const filters = $("#filters");
     const make = (label, value) => el("button", { class: "filter", type: "button", "data-filter": value, "aria-pressed": "false" }, label);
     filters.append(make("Tous", "*"), ...allTags.map((t) => make(t, t)));
