@@ -6,6 +6,9 @@ const path = require("path");
 const zlib = require("zlib");
 
 const PORT = process.env.PORT || 8080;
+// Version des fichiers CSS/JS, différente à chaque déploiement : ajoutée aux liens des pages HTML
+// (?v=...), elle oblige les navigateurs à recharger les fichiers au lieu d'utiliser une ancienne copie.
+const VERSION = Date.now().toString(36);
 const ROOT = path.join(__dirname, "public");
 
 const TYPES = {
@@ -65,10 +68,13 @@ const server = http.createServer((req, res) => {
     fs.readFile(filePath, (readErr, data) => {
       if (readErr) {
         return fs.readFile(path.join(ROOT, "404.html"), (e404, page) =>
-          send(res, 404, e404 ? "Not Found" : page, "text/html; charset=utf-8")
+          send(res, 404, e404 ? "Not Found" : page.toString("utf8").replace(/(\/assets\/[\w.-]+\.(?:css|js))(?=")/g, `$1?v=${VERSION}`), "text/html; charset=utf-8")
         );
       }
       const ext = path.extname(filePath).toLowerCase();
+      if (ext === ".html") {
+        data = Buffer.from(data.toString("utf8").replace(/(\/assets\/[\w.-]+\.(?:css|js))(?=")/g, `$1?v=${VERSION}`));
+      }
       // HTML, CSS et JS sont revalidés à chaque visite pour voir les mises à jour aussitôt ;
       // images et polices restent en cache une semaine.
       const cache = [".html", ".css", ".js"].includes(ext) ? "no-cache" : "public, max-age=604800";
