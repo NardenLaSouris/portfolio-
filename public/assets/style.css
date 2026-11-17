@@ -209,8 +209,7 @@ ul, ol { list-style: none; }
 /* ---------- Accueil ---------- */
 .hero {
   position: relative; overflow: hidden;
-  min-height: min(calc(100svh - var(--nav-h)), 860px);
-  display: flex; align-items: center; padding: 72px 0 96px;
+  display: flex; align-items: center; padding: 88px 0 40px;
 }
 .hero__bg {
   position: absolute; inset: 0; pointer-events: none;
@@ -277,12 +276,6 @@ ul, ol { list-style: none; }
 }
 .hero__socials a:hover { color: var(--text); border-color: var(--accent-2); }
 
-.scroll-hint {
-  position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%);
-  width: 26px; height: 42px; border-radius: 14px; border: 1.5px solid var(--border-strong);
-}
-.scroll-hint span { position: absolute; left: 50%; top: 8px; width: 3px; height: 8px; margin-left: -1.5px; border-radius: 2px; background: var(--accent-2); animation: wheel 2s ease-in-out infinite; }
-@keyframes wheel { 0% { opacity: 0; transform: translateY(0); } 30% { opacity: 1; } 80%, 100% { opacity: 0; transform: translateY(12px); } }
 
 /* ---------- Sections ---------- */
 .section { position: relative; padding: 112px 0; }
@@ -548,7 +541,6 @@ ul, ol { list-style: none; }
   .hero { min-height: 0; padding: 64px 0 88px; }
   .hero__grid { grid-template-columns: 1fr; gap: 40px; }
   .hero__card { max-width: 520px; }
-  .scroll-hint { display: none; }
   .featured__body { grid-template-columns: 1fr; }
   .about { grid-template-columns: 1fr; gap: 8px; }
   .about__text { padding-top: 16px; }
