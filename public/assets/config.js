@@ -8,7 +8,7 @@ window.PORTFOLIO = {
   // Phrase d'accroche : factuelle, sans slogan
   tagline:
     "Je développe des applications web, des API et des outils en ligne de commande. En ce moment, je construis ORION, un assistant vocal qui pilote ma maison sans passer par le cloud.",
-  location: "France",
+  location: "Nantes",
   available: true, // affiche le badge de disponibilité
   availabilityText: "Ouvert aux opportunités",
   email: "neveu.jules58@gmail.com",
@@ -34,9 +34,9 @@ window.PORTFOLIO = {
 
   // Faits rapides (factuels uniquement)
   facts: [
-    { label: "Langages", value: "Go · TypeScript · JavaScript · Python · SQL" },
+    { label: "Langages", value: "Go · TypeScript · JavaScript · Python · SQL · HTML · CSS" },
     { label: "En ce moment", value: "ORION, assistant vocal local" },
-    { label: "Localisation", value: "France" },
+    { label: "Localisation", value: "Nantes" },
   ],
 
   // Environnement technique, avec les projets où chaque outil est utilisé
