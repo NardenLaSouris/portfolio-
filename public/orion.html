@@ -253,6 +253,19 @@
             <li><strong>Terminal ORION OS</strong><span>Un téléphone sous ORION OS, un système basé sur Android 13, appairé par TLS épinglé. Voit l'état, commande ses lumières, coupe l'écoute. Expérimental.</span></li>
           </ul>
         </div>
+
+        <div class="o-face reveal">
+          <div class="o-face__text">
+            <h3 class="sub-title">Son visage</h3>
+            <p class="o-face__lead">Sur les écrans de la maison, ORION a un visage animé : une page servie par le Core, qui change selon ce qu'elle fait.</p>
+            <div class="o-face__tabs" role="tablist" id="faceStates" aria-label="États du visage"></div>
+            <p class="o-face__desc" id="faceText" aria-live="polite"></p>
+            <p class="o-face__note">Captures de la page réelle du visage, dans ses quatre états.</p>
+          </div>
+          <button class="o-face__stage" id="faceZoom" type="button" aria-label="Agrandir le visage d'ORION">
+            <img id="faceImg" class="is-in" src="/assets/orion/visage-listening.webp" alt="Le visage d'ORION en écoute" width="900" height="900" loading="lazy" decoding="async" />
+          </button>
+        </div>
       </div>
     </section>
 
@@ -414,6 +427,7 @@
 
         <div class="o-shots" id="controlShots" hidden>
           <h3 class="sub-title">Captures de l'application</h3>
+          <p class="o-shots__intro">La vraie application, branchée sur un vrai Core V3 lancé pour l'occasion sur une installation neuve : aucune donnée personnelle, ni GPU ni modèle de langage. ORION y fonctionne donc en mode réduit, ce que l'interface signale en rouge.</p>
           <div class="o-shots__grid" id="controlShotsGrid"></div>
         </div>
       </div>
@@ -459,18 +473,18 @@
           </p>
         </div>
 
-        <figure class="o-phone reveal" aria-label="Schéma d'un terminal ORION OS">
-          <div class="o-phone__body">
-            <div class="o-phone__screen">
-              <p class="o-phone__name">BUREAU</p>
-              <p class="o-phone__state"><span class="dot"></span> ORION à l'écoute</p>
-              <div class="o-phone__tiles">
-                <span>Lumière 1</span><span>Lumière 2</span><span>Volume</span><span>Intimité</span>
-              </div>
-              <p class="o-phone__link">TLS épinglé · Core</p>
-            </div>
+        <figure class="o-phone reveal" aria-label="Le visage d'ORION sur un terminal ORION OS">
+          <div class="o-phone__pair">
+            <button class="o-phone__shot" type="button" data-i="0" aria-label="Agrandir : terminal, ORION à l'écoute">
+              <span class="o-phone__body"><img src="/assets/orion/terminal-ecoute.webp" alt="Visage d'ORION au format du terminal, en écoute" width="720" height="1480" loading="lazy" decoding="async" /></span>
+              <span class="o-phone__label">À l'écoute</span>
+            </button>
+            <button class="o-phone__shot" type="button" data-i="1" aria-label="Agrandir : terminal en mode intimité">
+              <span class="o-phone__body"><img src="/assets/orion/terminal-intimite.webp" alt="Visage d'ORION au format du terminal, avec le bandeau Intimité : ORION n'écoute pas" width="720" height="1480" loading="lazy" decoding="async" /></span>
+              <span class="o-phone__label">Mode intimité</span>
+            </button>
           </div>
-          <figcaption>Schéma de principe, pas une capture de l'interface.</figcaption>
+          <figcaption>Le visage tel que le Core le sert au terminal (page <code>?terminal=1</code>), capturé au format du téléphone. Les commandes natives d'ORION OS (lumières, volume) ne sont pas montrées ici.</figcaption>
         </figure>
       </div>
     </section>

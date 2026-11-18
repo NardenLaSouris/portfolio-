@@ -6,7 +6,23 @@
 
   // Captures réelles d'ORION Control : déposer les images dans public/assets/orion/ puis les lister ici.
   // Exemple : { src: "/assets/orion/tableau-de-bord.webp", alt: "Tableau de bord d'ORION Control", caption: "Tableau de bord" }
-  const SHOTS = [];
+  // Captures du 18 novembre 2026 : la vraie application, branchée sur un vrai Core V3 lancé sur une installation neuve
+  // (aucune donnée personnelle, ni GPU ni modèle de langage : ORION y fonctionne en mode réduit).
+  const SHOTS = [
+    { src: "/assets/orion/control-tableau-de-bord.webp", alt: "ORION Control : tableau de bord avec l'état d'ORION, les services, le programme et l'activité récente", caption: "Tableau de bord : état d'ORION, services, points à surveiller, activité récente", w: 1600, h: 1000 },
+    { src: "/assets/orion/control-autonomie.webp", alt: "ORION Control : page Autonomie avec l'interrupteur, l'arrêt d'urgence, le registre d'actions et les ressources", caption: "Autonomie : interrupteur, arrêt d'urgence, registre chaîné et son empreinte", w: 1600, h: 1000 },
+    { src: "/assets/orion/control-sante.webp", alt: "ORION Control : page Santé avec les ressources surveillées par SENTINEL et les incidents", caption: "Santé : ressources surveillées par SENTINEL, incidents en cours", w: 1600, h: 1000 },
+    { src: "/assets/orion/control-outils.webp", alt: "ORION Control : liste des 146 outils avec leur domaine, leur niveau de risque et leur disponibilité", caption: "Outils : 146 outils, chacun avec son niveau de risque", w: 1600, h: 1000 },
+    { src: "/assets/orion/control-actualites.webp", alt: "ORION Control : réglages du module NEWS, heures des bulletins, seuils et catégories suivies", caption: "Actualités : réglages de NEWS (bulletins, seuils, catégories)", w: 1600, h: 1000 },
+  ];
+
+  // Le visage d'ORION, capturé dans ses quatre états (page réelle orion/face/static).
+  const FACES = {
+    standby: { src: "/assets/orion/visage-standby.webp", label: "Veille", text: "En veille, le visage s'efface : seul son nom reste visible, en sourdine." },
+    listening: { src: "/assets/orion/visage-listening.webp", label: "Écoute", text: "Après « ORION », les anneaux s'ouvrent et les axes s'éclairent pendant qu'elle écoute." },
+    thinking: { src: "/assets/orion/visage-thinking.webp", label: "Réflexion", text: "Pendant qu'elle réfléchit, les anneaux tournent plus vite et le motif se densifie." },
+    speaking: { src: "/assets/orion/visage-speaking.webp", label: "Réponse", text: "Quand elle répond, le visage suit le niveau de sa voix." },
+  };
 
   const el = (tag, attrs = {}, ...children) => {
     const node = document.createElement(tag);
@@ -224,6 +240,38 @@
     );
     $("#controlShots").hidden = false;
   }
+
+  /* ---------- Le visage : un état à la fois ---------- */
+  const faceBox = $("#faceStates");
+  if (faceBox) {
+    const img = $("#faceImg");
+    const txt = $("#faceText");
+    const tabs = Object.entries(FACES).map(([key, f]) => {
+      const b = el("button", { type: "button", role: "tab", class: "o-face__tab", "aria-selected": "false", "data-state": key }, f.label);
+      b.addEventListener("click", () => {
+        tabs.forEach((t) => t.setAttribute("aria-selected", String(t === b)));
+        img.classList.remove("is-in");
+        requestAnimationFrame(() => {
+          img.src = f.src;
+          img.alt = `Le visage d'ORION en état : ${f.label.toLowerCase()}`;
+          txt.textContent = f.text;
+          img.classList.add("is-in");
+        });
+      });
+      return b;
+    });
+    faceBox.append(...tabs);
+    tabs[1].click();
+    $("#faceZoom").addEventListener("click", () => window.Lightbox && window.Lightbox.open(
+      Object.values(FACES).map((f) => ({ src: f.src, alt: `Le visage d'ORION : ${f.label}`, caption: `${f.label} — ${f.text}` })),
+      Object.keys(FACES).indexOf(tabs.find((t) => t.getAttribute("aria-selected") === "true").dataset.state), $("#faceZoom")));
+  }
+
+  /* ---------- Terminal : captures agrandissables ---------- */
+  $$(".o-phone__shot").forEach((b) => b.addEventListener("click", () => window.Lightbox && window.Lightbox.open([
+    { src: "/assets/orion/terminal-ecoute.webp", alt: "Visage d'ORION sur le terminal, en écoute", caption: "Terminal : ORION à l'écoute" },
+    { src: "/assets/orion/terminal-intimite.webp", alt: "Visage d'ORION sur le terminal avec le bandeau Intimité", caption: "Terminal : mode intimité, ORION n'écoute pas" },
+  ], Number(b.dataset.i), b)));
 
   /* ---------- Constellation : liens du Core vers chaque élément ---------- */
   const sky = $("#skyLines");
