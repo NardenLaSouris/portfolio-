@@ -18,12 +18,12 @@ const BANNER =
   'text-transform:uppercase;box-shadow:0 4px 14px rgba(0,0,0,.35);pointer-events:none">Pré-production</div>';
 
 // Prépare une page HTML : version des fichiers CSS/JS et, en préproduction, bandeau + noindex.
-function prepareHtml(buf) {
+function prepareHtml(buf, embedded = false) {
   let html = buf.toString("utf8").replace(/(\/assets\/[\w.-]+\.(?:css|js))(?=")/g, `$1?v=${VERSION}`);
   if (PREPROD) {
     html = html
       .replace("<head>", '<head>\n  <meta name="robots" content="noindex, nofollow" />')
-      .replace("</body>", `${BANNER}\n</body>`);
+      .replace("</body>", embedded ? "</body>" : `${BANNER}\n</body>`);  // pas de bandeau dans une page incrustée
   }
   return Buffer.from(html);
 }
@@ -50,7 +50,7 @@ const COMPRESSIBLE = new Set([".html", ".css", ".js", ".json", ".svg", ".txt", "
 const SECURITY_HEADERS = {
   ...(PREPROD ? { "X-Robots-Tag": "noindex, nofollow" } : {}),
   "X-Content-Type-Options": "nosniff",
-  "X-Frame-Options": "DENY",
+  "X-Frame-Options": "SAMEORIGIN",
   "Referrer-Policy": "strict-origin-when-cross-origin",
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
 };
@@ -96,7 +96,7 @@ const server = http.createServer((req, res) => {
       }
       const ext = path.extname(filePath).toLowerCase();
       if (ext === ".html") {
-        data = prepareHtml(data);
+        data = prepareHtml(data, urlPath.startsWith("/orion-visage/"));
       }
       // HTML, CSS et JS sont revalidés à chaque visite pour voir les mises à jour aussitôt ;
       // images et polices restent en cache une semaine.
