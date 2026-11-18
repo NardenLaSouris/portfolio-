@@ -258,16 +258,23 @@
     const txt = $("#faceText");
     let frame = null;
     let current = "standby";
-    const api = () => frame && frame.contentWindow && (frame.contentWindow.OrionFace || frame.contentWindow.JarvisFace);
+    const api = () => {
+      try { return frame && frame.contentWindow && (frame.contentWindow.OrionFace || frame.contentWindow.JarvisFace); } catch { return null; }
+    };
     const push = () => { const f = api(); if (f) f.setVisualState(current); };
 
     if (!reducedMotion.matches) {
       frame = el("iframe", { class: "o-face__frame", src: "/orion-visage/index.html", title: "Visage animé d'ORION", loading: "lazy", tabindex: "-1" });
-      frame.addEventListener("load", () => { push(); stage.classList.add("is-live"); });
+      // Le visage ne répond pas (page bloquée, script refusé) : le cadre est retiré, la capture fixe reste.
+      frame.addEventListener("load", () => {
+        if (!api()) { frame.remove(); frame = null; $("#faceNote").textContent = "Captures de la page réelle du visage, dans ses quatre états."; return; }
+        push();
+        stage.classList.add("is-live");
+      });
       stage.append(frame);
       $("#faceNote").textContent = "La vraie page du visage d'ORION, animée en direct ; les onglets lui donnent son état.";
       // Hors de l'écran, le cadre est masqué : le navigateur n'anime plus le visage.
-      new IntersectionObserver((entries) => entries.forEach((e) => { frame.style.visibility = e.isIntersecting ? "visible" : "hidden"; }))
+      new IntersectionObserver((entries) => entries.forEach((e) => { if (frame) frame.style.visibility = e.isIntersecting ? "visible" : "hidden"; }))
         .observe(stage);
     }
 
