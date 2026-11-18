@@ -209,9 +209,18 @@
   const firstAutonomy = $$("button", controlNav).find((b) => b.textContent === "Autonomie");
   firstAutonomy.click();
 
+  // Captures : la première en grand, les suivantes en galerie ; toutes s'agrandissent au clic.
   if (SHOTS.length) {
+    const open = (i, trigger) => window.Lightbox && window.Lightbox.open(SHOTS, i, trigger);
+    const tile = (s, i, cls) => {
+      const b = el("button", { class: cls, type: "button", "aria-label": `Agrandir : ${s.caption || s.alt}` },
+        el("img", { src: s.src, alt: s.alt, width: s.w, height: s.h, loading: "lazy", decoding: "async" }));
+      b.addEventListener("click", () => open(i, b));
+      return el("figure", {}, b, s.caption ? el("figcaption", {}, s.caption) : null);
+    };
     $("#controlShotsGrid").append(
-      ...SHOTS.map((s) => el("figure", {}, el("img", { src: s.src, alt: s.alt, loading: "lazy", decoding: "async" }), s.caption ? el("figcaption", {}, s.caption) : null))
+      tile(SHOTS[0], 0, "o-shot o-shot--main"),
+      ...SHOTS.slice(1).map((s, i) => tile(s, i + 1, "o-shot"))
     );
     $("#controlShots").hidden = false;
   }

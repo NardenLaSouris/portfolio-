@@ -50,7 +50,10 @@
 
   /* ---------- Accueil : domaines + carte « en bref » ---------- */
   $("#domains").append(...(C.domains || []).map((d) => el("li", {}, d)));
-  $("#facts").append(...(C.facts || []).flatMap((f) => [el("dt", {}, f.label), el("dd", {}, f.value)]));
+  $("#facts").append(...(C.facts || []).flatMap((f) => [
+    el("dt", {}, f.label),
+    el("dd", {}, f.href ? el("a", { class: "facts__link", href: f.href }, f.value, el("span", { "aria-hidden": "true" }, " →")) : f.value),
+  ]));
   $("#heroSocials").append(
     ...(C.socials || []).map((s) => el("li", {}, el("a", { ...external(s.url), "aria-label": s.label, html: `${iconFor(s.label)}<span>${s.label}</span>` })))
   );
@@ -100,36 +103,100 @@
     box.hidden = false;
   }
 
-  /* ---------- Projets principaux ---------- */
+  /* ---------- Visuels : cadre, miniatures, zoom ---------- */
+  const zoomIcon = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const picture = (m, cls = "") =>
+    el("img", { class: cls, src: m.src, alt: m.alt, width: m.w, height: m.h, loading: "lazy", decoding: "async" });
+  const frameOf = (m, inner) =>
+    m.frame === "browser"
+      ? el("div", { class: "frame frame--browser" },
+          el("div", { class: "frame__bar", "aria-hidden": "true" }, el("i"), el("i"), el("i"), el("span", {}, m.url || "")),
+          inner)
+      : el("div", { class: "frame" }, inner);
+
+  const gallery = (p) => {
+    const media = p.media || [];
+    if (!media.length) return null;
+    let current = 0;
+    let thumbs = [];
+    const main = el("button", { class: "media__main", type: "button" });
+    const caption = el("figcaption", { class: "media__caption" });
+    const render = () => {
+      const m = media[current];
+      main.replaceChildren(frameOf(m, picture(m)), el("span", { class: "media__zoom", html: zoomIcon }));
+      main.setAttribute("aria-label", `Agrandir : ${m.caption}`);
+      main.classList.toggle("is-tall", m.h > m.w * 1.1);
+      caption.textContent = m.caption;
+      thumbs.forEach((t, i) => {
+        t.classList.toggle("is-active", i === current);
+        t.setAttribute("aria-pressed", String(i === current));
+      });
+    };
+    if (media.length > 1) {
+      thumbs = media.map((m, i) => {
+        const t = el("button", { class: "media__thumb", type: "button", "aria-label": `Afficher : ${m.caption}` }, picture(m));
+        t.addEventListener("click", () => { current = i; render(); });
+        return t;
+      });
+    }
+    main.addEventListener("click", () => window.Lightbox && window.Lightbox.open(media, current, main));
+    render();
+    return el("figure", { class: "media" }, main, caption, thumbs.length ? el("div", { class: "media__thumbs" }, thumbs) : null);
+  };
+
+  /* ---------- Projets principaux : fiches complètes ---------- */
   const projects = C.projects || [];
-  const projectCard = (p, i) =>
-    el("article", { class: "project reveal", "data-cat": p.category || "", style: `--i:${i}` },
-      el("div", { class: "project__top" },
-        el("p", { class: "project__kind" }, p.kind || p.category || ""),
-        el("div", { class: "project__links" }, linkButtons(p))),
-      el("h3", { class: "project__title" }, p.title),
-      el("dl", { class: "project__ps" },
-        el("dt", {}, "Contexte"), el("dd", {}, p.problem),
-        el("dt", {}, "Réalisation"), el("dd", {}, p.solution)),
-      tagList(p.tags));
-  $("#projectsGrid").append(...projects.map(projectCard));
+  const caseCard = (p, i) =>
+    el("article", { class: "case reveal", id: `projet-${p.slug || i}`, "data-cat": p.category || "" },
+      gallery(p),
+      el("div", { class: "case__body" },
+        el("p", { class: "case__meta" }, el("span", {}, p.kind || p.category || ""), p.period ? el("span", {}, p.period) : null),
+        el("h3", { class: "case__title" }, p.title),
+        el("p", { class: "case__summary" }, p.summary),
+        el("dl", { class: "case__ps" },
+          el("div", {}, el("dt", {}, "Contexte"), el("dd", {}, p.problem)),
+          el("div", {}, el("dt", {}, "Réalisation"), el("dd", {}, p.solution)),
+          p.contribution ? el("div", {}, el("dt", {}, "Mon travail"), el("dd", {}, p.contribution)) : null),
+        p.features ? el("ul", { class: "case__features", "aria-label": "Fonctionnalités" }, p.features.map((x) => el("li", {}, x))) : null,
+        p.challenge ? el("p", { class: "case__challenge" }, el("strong", {}, "Point technique "), p.challenge) : null,
+        el("div", { class: "case__foot" }, tagList(p.tags), el("div", { class: "project__links" }, linkButtons(p)))));
+  $("#projectsGrid").append(...projects.map(caseCard));
 
   /* ---------- Projets secondaires ---------- */
   const miniCard = (p, i = 0) => {
     const href = p.repo || p.demo;
-    const card = el("article", { class: "mini reveal", "data-cat": p.category || "", style: `--i:${i}` },
-      el("div", { class: "mini__head" },
-        el("h4", {}, href ? el("a", { ...external(href), class: "mini__link" }, p.title) : p.title),
-        href ? el("span", { class: "mini__icon", html: ICONS.arrow }) : null),
-      p.description ? el("p", {}, p.description) : null,
-      p.meta || null,
-      tagList(p.tags));
-    return card;
+    const media = p.media || [];
+    let shot = null;
+    if (media.length) {
+      shot = el("button", { class: "mini__shot", type: "button", "aria-label": `Voir les captures de ${p.title}` },
+        picture(media[0]), el("span", { class: "mini__shots-count" }, media.length > 1 ? `${media.length} captures` : "1 capture"));
+      shot.addEventListener("click", () => window.Lightbox && window.Lightbox.open(media, 0, shot));
+    }
+    return el("article", { class: `mini reveal${shot ? " mini--media" : ""}`, "data-cat": p.category || "", style: `--i:${i}` },
+      shot,
+      el("div", { class: "mini__body" },
+        p.kind ? el("p", { class: "mini__kind" }, p.kind) : null,
+        el("div", { class: "mini__head" },
+          el("h4", {}, href ? el("a", { ...external(href), class: "mini__link" }, p.title) : p.title),
+          href ? el("span", { class: "mini__icon", html: ICONS.arrow }) : null),
+        p.description ? el("p", {}, p.description) : null,
+        p.contribution ? el("p", { class: "mini__contrib" }, el("strong", {}, "Mon rôle : "), p.contribution) : null,
+        p.meta || null,
+        tagList(p.tags)));
   };
   const secondary = C.secondary || [];
   if (secondary.length) {
     $("#secondaryTitle").hidden = false;
     $("#secondaryGrid").append(...secondary.map(miniCard));
+  }
+
+  /* ---------- Premiers projets ---------- */
+  const early = C.early || [];
+  if (early.length) {
+    $("#earlyBlock").hidden = false;
+    $("#earlyList").append(...early.map((x) =>
+      el("li", {}, el("a", { ...external(x.repo) },
+        el("strong", {}, x.title), el("span", {}, x.note), el("span", { class: "early__arrow", html: ICONS.arrow })))));
   }
 
   /* ---------- Filtres par catégorie ---------- */
@@ -145,8 +212,9 @@
         b.classList.toggle("active", on);
         b.setAttribute("aria-pressed", String(on));
       });
-      $$("#projectsGrid .project, #secondaryGrid .mini").forEach((card) => {
+      $$("#projectsGrid .case, #secondaryGrid .mini").forEach((card) => {
         card.hidden = value !== "*" && card.dataset.cat !== value;
+        if (!card.hidden) card.classList.add("visible");
       });
       $("#secondaryTitle").hidden = !$$("#secondaryGrid .mini").some((c) => !c.hidden);
     };
@@ -164,13 +232,13 @@
     const grid = $("#ghGrid");
     const count = mobile.matches ? Math.min(C.githubRepoCount || 6, 4) : C.githubRepoCount || 6;
     $("#ghMore").href = `https://github.com/${C.github}?tab=repositories`;
-    const known = new Set([f, ...all].filter(Boolean).map((p) => norm(p.repo)).filter(Boolean));
+    const known = new Set([f, ...all, ...early].filter(Boolean).map((p) => norm(p.repo)).filter(Boolean));
     const excluded = new Set((C.githubExclude || []).map((n) => n.toLowerCase()));
     try {
       const res = await fetch(`https://api.github.com/users/${encodeURIComponent(C.github)}/repos?sort=pushed&per_page=30`);
       if (!res.ok) throw new Error(res.status);
       const repos = (await res.json())
-        .filter((r) => !r.fork && !r.archived && !known.has(norm(r.html_url)) && !excluded.has(r.name.toLowerCase()))
+        .filter((r) => !r.fork && !r.archived && !known.has(norm(r.html_url)) && !excluded.has(r.name.toLowerCase()) && !/aureon/i.test(r.name))
         .slice(0, count);
       if (!repos.length) return;
       grid.append(

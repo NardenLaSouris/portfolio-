@@ -123,16 +123,21 @@
         <header class="section__head reveal">
           <p class="eyebrow"><span class="mono">02</span> Projets</p>
           <h2 class="section__title" id="projects-title">Mes projets</h2>
-          <p class="section__lead">Pour chaque projet : le contexte, ce que j'ai fait et les outils utilisés.</p>
+          <p class="section__lead">Pour chaque projet : le contexte, ce que j'ai fait, les outils utilisés et des captures réelles. Cliquez sur une image pour l'agrandir.</p>
         </header>
 
         <article class="featured reveal" id="featured" hidden></article>
 
         <div class="filters reveal" id="filters" role="toolbar" aria-label="Filtrer les projets"></div>
-        <div class="projects" id="projectsGrid"></div>
+        <div class="cases" id="projectsGrid"></div>
 
         <h3 class="sub-title reveal" id="secondaryTitle" hidden>Autres projets</h3>
-        <div class="minis" id="secondaryGrid"></div>
+        <div class="minis minis--media" id="secondaryGrid"></div>
+
+        <div class="early reveal" id="earlyBlock" hidden>
+          <h3 class="sub-title">Premiers projets</h3>
+          <ul class="early__list" id="earlyList"></ul>
+        </div>
 
         <div class="gh" id="ghSection" hidden>
           <h3 class="sub-title">Derniers dépôts publics</h3>
@@ -204,6 +209,7 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="/assets/config.js" defer></script>
+  <script src="/assets/lightbox.js" defer></script>
   <script src="/assets/app.js" defer></script>
 </body>
 </html>

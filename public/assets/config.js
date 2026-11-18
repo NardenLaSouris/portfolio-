@@ -1,6 +1,7 @@
 // ============================================================
 //  CONTENU DU PORTFOLIO — modifie uniquement ce fichier
 //  pour personnaliser ton site (textes, liens, projets...).
+//  Les captures sont dans public/assets/projets/<projet>/.
 // ============================================================
 window.PORTFOLIO = {
   name: "Jules NEVEU",
@@ -20,7 +21,8 @@ window.PORTFOLIO = {
   // Pseudo GitHub : les autres dépôts publics sont chargés automatiquement
   github: "NardenLaSouris",
   githubRepoCount: 6,
-  githubExclude: ["Forum-Project"], // dépôts à ne pas afficher (vides, brouillons...)
+  // Dépôts à ne jamais afficher (vides, exercices forkés...).
+  githubExclude: ["Forum-Project", "git-exam"],
 
   socials: [
     { label: "GitHub", handle: "NardenLaSouris", url: "https://github.com/NardenLaSouris" },
@@ -29,13 +31,13 @@ window.PORTFOLIO = {
 
   about: [
     "J'aime suivre un projet en entier, du schéma de la base de données jusqu'à la mise en ligne.",
-    "J'ai écrit des jeux en ligne de commande en Go et en TypeScript, et une application Express déployée sur Scalingo avec un camarade. Mon plus gros projet est ORION, une assistante vocale qui tourne sur trois machines de mon réseau.",
+    "J'ai appris en construisant : des jeux en Go, une base de données relationnelle, une application Express déployée sur Scalingo en binôme, un RPG en TypeScript en équipe. Mon plus gros projet est ORION, une assistante vocale qui tourne sur trois machines de mon réseau et que j'exploite en production.",
   ],
 
   // Faits rapides (factuels uniquement)
   facts: [
     { label: "Langages", value: "Go · TypeScript · JavaScript · Python · SQL · HTML · CSS" },
-    { label: "En ce moment", value: "ORION, assistante vocale locale" },
+    { label: "En ce moment", value: "ORION, assistante vocale locale", href: "orion.html" },
     { label: "Localisation", value: "Nantes" },
   ],
 
@@ -45,158 +47,260 @@ window.PORTFOLIO = {
       group: "Langages",
       items: [
         { name: "Python", where: "ORION" },
-        { name: "Go", where: "Hangman, Projet Red" },
-        { name: "TypeScript", where: "RPG, app mobile ORION" },
-        { name: "JavaScript", where: "TODO App, ce portfolio" },
+        { name: "Go", where: "Hangman Classic, Projet Red, Piscine Go" },
+        { name: "TypeScript", where: "RPG en équipe, app mobile ORION" },
+        { name: "JavaScript", where: "TODO App, ORION Control, ce portfolio" },
         { name: "SQL", where: "GalaxiEat, TODO App" },
-        { name: "HTML / CSS", where: "TODO App, ce portfolio" },
+        { name: "HTML / CSS", where: "TODO App, ORION Control, ce portfolio" },
       ],
     },
     {
-      group: "Frameworks & runtimes",
+      group: "Frameworks et bibliothèques",
+      items: [
+        { name: "Express", where: "TODO App" },
+        { name: "Expo / React Native", where: "app mobile ORION" },
+        { name: "Firebase (SDK Go)", where: "Hangman Classic, mode en ligne commencé" },
+      ],
+    },
+    {
+      group: "Développement web",
+      items: [
+        { name: "Interfaces sans framework", where: "TODO App, ORION Control, ce portfolio" },
+        { name: "Responsive et accessibilité", where: "ce portfolio" },
+        { name: "API REST, contrôle de santé", where: "TODO App, ORION" },
+      ],
+    },
+    {
+      group: "Backend",
       items: [
         { name: "Node.js", where: "TODO App, ce portfolio" },
-        { name: "Express", where: "TODO App" },
-        { name: "Deno", where: "RPG TypeScript" },
-        { name: "Expo / React Native", where: "app mobile ORION" },
-      ],
-    },
-    {
-      group: "Données",
-      items: [
         { name: "PostgreSQL", where: "TODO App" },
-        { name: "SQLite", where: "GalaxiEat" },
-        { name: "Firebase", where: "Hangman (multijoueur)" },
+        { name: "SQLite", where: "GalaxiEat, ORION" },
+        { name: "Services Python de longue durée", where: "ORION" },
       ],
     },
     {
-      group: "IA & systèmes",
+      group: "Intelligence artificielle",
       items: [
-        { name: "Ollama (LLM local)", where: "ORION" },
-        { name: "faster-whisper", where: "ORION" },
-        { name: "Piper (TTS)", where: "ORION" },
-        { name: "Moteur de permissions", where: "ORION" },
-        { name: "systemd", where: "ORION" },
+        { name: "LLM locaux (Ollama, Qwen)", where: "ORION" },
+        { name: "faster-whisper (STT)", where: "ORION" },
+        { name: "Piper (TTS, voix entraînée)", where: "ORION" },
+        { name: "openWakeWord (mot de réveil entraîné)", where: "ORION" },
       ],
     },
     {
-      group: "Outils & environnements",
+      group: "Infrastructure et outils",
       items: [
         { name: "Git / GitHub", where: "tous les projets" },
-        { name: "Linux", where: "ORION" },
+        { name: "systemd (services, watchdog)", where: "ORION" },
         { name: "Docker", where: "ORION (SearXNG)" },
         { name: "Scalingo", where: "TODO App" },
         { name: "Clever Cloud", where: "ce portfolio" },
+      ],
+    },
+    {
+      group: "Environnements de développement",
+      items: [
+        { name: "Linux (Ubuntu)", where: "Core d'ORION" },
+        { name: "Windows, PowerShell", where: "agents et ORION Control" },
+        { name: "Deno", where: "RPG en équipe" },
+        { name: "Terminal (Bash)", where: "scripts de déploiement d'ORION" },
       ],
     },
   ],
 
   // Projet phare, affiché en grand en tête de la section Projets
   featured: {
-    title: "O.R.I.O.N.",
-    status: "Projet en cours",
+    title: "ORION",
+    status: "Projet en cours · V3 en production",
     subtitle: "Assistante personnelle 100 % locale",
     caseStudy: "orion.html",
     problem:
       "Les assistants vocaux du commerce traitent les demandes sur des serveurs distants. Je voulais une assistante qui pilote ma maison et mon PC sans que rien ne sorte de mon réseau, et dont je contrôle précisément les actions.",
     solution:
-      "On dit « ORION », elle répond « Oui, monsieur ? », puis elle comprend la demande et l'exécute. Le traitement est réparti sur trois machines : un mini-PC Linux qui orchestre, un PC portable équipé d'une RTX 4070 pour le modèle de langage, et mon PC principal comme terminal audio.",
+      "On dit « ORION », elle répond « Oui, monsieur ? », puis elle comprend la demande et l'exécute. Le traitement est réparti sur trois machines : un mini-PC Linux qui orchestre, un PC portable avec GPU pour le modèle de langage et la transcription, et mon PC principal comme terminal audio.",
     pipeline: ["Mot de réveil", "Transcription", "Outil ou LLM", "Validation", "Réponse vocale"],
     machines: [
-      { name: "Mini-PC Linux", role: "Orchestration, transcription, outils, synthèse vocale" },
-      { name: "PC portable RTX 4070", role: "Modèle de langage (Ollama) sur GPU" },
-      { name: "PC principal", role: "Micro, haut-parleurs et actions sur le PC" },
+      { name: "Core Linux", role: "Orchestration, outils, modules, voix, sauvegardes" },
+      { name: "PC portable avec GPU", role: "Modèle de langage et transcription" },
+      { name: "PC principal", role: "Micro, haut-parleurs, ORION Control" },
     ],
     highlights: [
-      "Le LLM ne fait que proposer : chaque action passe par le Core, qui valide, vérifie les permissions et demande confirmation si besoin. ORION n'exécute jamais de commande shell libre.",
-      "Autonomie contrôlée : interrupteur, autorisations bornées et registre d'actions chaîné. Les initiatives de ses modules (bulletins NEWS, alertes) y sont soumises.",
-      "Si le PC avec le GPU est éteint, les commandes simples marchent toujours et un petit modèle de secours prend le relais pour la conversation.",
-      "En production depuis le 4 novembre 2026 (V3) : déploiement scripté avec contrôle de santé, sauvegardes vérifiées chaque nuit, plus de 5 100 tests.",
-      "ORION Control, une application Windows de 26 pages, pour superviser ce qu'elle fait et régler ce qu'elle a le droit de faire.",
+      "Le LLM ne fait que proposer : chaque action passe par le Core, qui valide, vérifie les permissions et demande confirmation si besoin.",
+      "Autonomie contrôlée : interrupteur, autorisations bornées et registre d'actions chaîné.",
+      "En production depuis le 4 novembre 2026 : déploiement avec contrôle de santé, sauvegardes vérifiées chaque nuit, plus de 5 100 tests.",
+      "ORION Control, une application Windows de 26 pages, pour la superviser et régler ce qu'elle a le droit de faire.",
     ],
     tags: ["Python", "Ollama", "faster-whisper", "Piper", "SQLite", "Expo / React Native", "Linux", "systemd"],
     repo: "", // dépôt privé
     demo: "",
   },
 
-  // Projets principaux : contexte + réalisation
+  // Projets principaux : présentation complète avec captures.
+  // media[].frame : "browser" (capture d'une page web), "none" (terminal, schéma : déjà cadrés).
   projects: [
     {
-      title: "TODO App (atelier CI/CD)",
-      kind: "Application web · projet en binôme",
+      slug: "todo",
+      title: "TODO App",
+      kind: "Application web · binôme",
       category: "Web",
-      problem:
-        "Atelier fil conducteur en binôme : créer une application web et la déployer en continu sur un hébergeur cloud.",
-      solution:
-        "Un serveur Express sert l'interface en HTML/CSS/JS et expose /api/health pour vérifier que l'API répond. La configuration passe par des variables d'environnement et l'application tourne sur Scalingo. La connexion à PostgreSQL est écrite mais pas encore branchée.",
-      tags: ["Node.js", "Express", "PostgreSQL", "JavaScript", "Scalingo"],
+      period: "Janvier → mai 2026",
+      summary: "Une application de tâches livrée de bout en bout dans le cadre d'un atelier CI/CD : serveur Express, interface web et déploiement sur Scalingo.",
+      problem: "Atelier fil conducteur : créer une application web avec Emilien Pavageau et la déployer en continu sur un hébergeur cloud.",
+      solution: "Un serveur Express sert l'interface et expose /api/health pour vérifier que l'API répond. La configuration passe par des variables d'environnement et l'application tourne sur Scalingo.",
+      contribution: "J'ai écrit l'interface (HTML, CSS, JavaScript), adapté le serveur Express pour la servir, préparé le déploiement Scalingo (Procfile, scripts npm) et ajouté le module de connexion PostgreSQL. Emilien a posé la structure et le serveur de départ.",
+      features: [
+        "Ajout et suppression de tâches",
+        "Indicateur de connexion à l'API, mis à jour au chargement",
+        "Route de santé /api/health (statut, durée de fonctionnement, horodatage)",
+        "Démarrage sans base de données si DATABASE_URL est absent",
+      ],
+      challenge: "Faire tourner la même application en local et sur Scalingo : port et base fournis par l'hébergeur, connexion PostgreSQL en SSL seulement en production.",
+      tags: ["Node.js", "Express", "JavaScript", "PostgreSQL", "Scalingo"],
       repo: "https://github.com/NardenLaSouris/ATELIER-FIL-CONDUCTEUR---TODO-APP",
       demo: "",
+      media: [
+        { src: "/assets/projets/todo/app-taches.webp", alt: "TODO App : liste de trois tâches et indicateur « API connectée »", caption: "L'interface avec l'API connectée et trois tâches", frame: "browser", url: "localhost:3055", w: 1260, h: 1000 },
+        { src: "/assets/projets/todo/app-mobile.webp", alt: "TODO App sur un écran de téléphone", caption: "La même page sur mobile", frame: "browser", url: "localhost:3055", w: 780, h: 1560 },
+        { src: "/assets/projets/todo/api-health.webp", alt: "Réponse JSON de la route /api/health dans un terminal", caption: "La route de santé interrogée avec curl", frame: "none", w: 1434, h: 528 },
+      ],
     },
     {
-      title: "RPG tour par tour",
-      kind: "Jeu en ligne de commande",
-      category: "Jeux",
-      problem:
-        "Exercice de programmation orientée objet : écrire un jeu de combat complet en TypeScript.",
-      solution:
-        "Le joueur choisit 3 aventuriers parmi 6 classes, chacune avec son action (soin, magie, vol, attaque de zone, berserk). Il traverse un donjon de 5 salles : combats, coffres parfois piégés, puis un boss. La vitesse décide de l'ordre des tours et l'inventaire est commun à l'équipe.",
-      tags: ["TypeScript", "Deno", "POO"],
-      repo: "https://github.com/NardenLaSouris/Projet_RPG_TypeScript",
+      slug: "galaxieat",
+      title: "GalaxiEat",
+      kind: "Base de données · projet seul",
+      category: "Données",
+      period: "Février 2026",
+      summary: "La base de données d'une chaîne de restaurants interplanétaire : modélisation, jeu de données et requêtes d'analyse.",
+      problem: "Exercice de modélisation relationnelle : représenter restaurants, personnel, carte, commandes et ingrédients, puis interroger la base.",
+      solution: "Un script SQL qui crée 7 tables reliées par des clés étrangères, les remplit et enchaîne des requêtes d'analyse et de mise à jour.",
+      contribution: "J'ai réalisé seul la modélisation, le script SQL et les requêtes.",
+      features: [
+        "7 tables, dont une table d'association à clé composite entre plats et ingrédients",
+        "Jeu de données : 23 restaurants, 45 employés, une carte de plats",
+        "Jointures sur trois tables, sous-requêtes, agrégats par catégorie",
+        "Mise à jour conditionnelle des prix avec CASE",
+      ],
+      challenge: "Modéliser la relation plusieurs-à-plusieurs entre plats et ingrédients avec une table d'association et une clé primaire composite.",
+      tags: ["SQL", "SQLite", "Modélisation"],
+      repo: "https://github.com/NardenLaSouris/GalaxiEat",
       demo: "",
+      media: [
+        { src: "/assets/projets/galaxieat/schema.webp", alt: "Schéma relationnel des 7 tables de GalaxiEat avec clés primaires et étrangères", caption: "Schéma relationnel, généré depuis les CREATE TABLE du script", frame: "none", w: 1600, h: 1192 },
+        { src: "/assets/projets/galaxieat/requetes.webp", alt: "Résultats de trois requêtes SQL : prix moyen par catégorie, plats au-dessus de la moyenne, total des ventes", caption: "Trois requêtes du script exécutées sur la base", frame: "none", w: 1298, h: 1424 },
+      ],
+    },
+    {
+      slug: "hangman",
+      title: "Hangman Classic",
+      kind: "Jeu en ligne de commande · Go",
+      category: "Jeux",
+      period: "Octobre 2025",
+      summary: "Le jeu du pendu en Go, organisé en paquets, avec titres en art ASCII, niveaux de difficulté et un mode en ligne commencé.",
+      problem: "Projet de formation en Go : écrire un jeu complet en terminal, du choix du mot jusqu'à la fin de partie.",
+      solution: "Un menu en art ASCII, trois dictionnaires selon la difficulté, dix essais et le dessin du pendu qui avance à chaque erreur.",
+      contribution: "",
+      features: [
+        "Trois niveaux de difficulté, chacun avec son dictionnaire",
+        "Titres et lettres en art ASCII, trois polices disponibles",
+        "Lettres déjà proposées affichées, saisies invalides refusées",
+        "Code de triche et début de mode en ligne avec Firebase",
+      ],
+      challenge: "Découper le jeu en paquets Go séparés (logique, affichage, mots, configuration, mode en ligne) plutôt qu'en un seul fichier.",
+      tags: ["Go", "Firebase"],
+      repo: "https://github.com/NardenLaSouris/Hangman-classic",
+      demo: "",
+      media: [
+        { src: "/assets/projets/hangman/partie.webp", alt: "Partie de pendu dans un terminal : lettres proposées et dessin du pendu", caption: "Une partie réelle, jusqu'au dernier essai", frame: "none", w: 1096, h: 1172 },
+        { src: "/assets/projets/hangman/menu.webp", alt: "Menu du jeu avec le titre HANGMAN en art ASCII", caption: "Le menu principal", frame: "none", w: 1600, h: 506 },
+      ],
+    },
+    {
+      slug: "red",
+      title: "Projet Red",
+      kind: "Jeu en ligne de commande · Go",
+      category: "Jeux",
+      period: "Octobre 2025",
+      summary: "Un jeu de rôle en terminal : création de personnage, marché, forgeron et combats au tour par tour.",
+      problem: "Projet de formation en Go : concevoir un jeu avec un personnage, un inventaire et un système de combat.",
+      solution: "Un menu principal qui mène à la création de personnage, à ses statistiques, au marché, au forgeron, à l'inventaire et au combat.",
+      contribution: "",
+      features: [
+        "Création de personnage : classe (Humain, Elfe, Nain) et nom vérifié",
+        "Combat au tour par tour avec compétences et poison sur trois tours",
+        "Inventaire, potions, marchand et forgeron",
+        "Saisies invalides détectées, avec retour au menu",
+      ],
+      challenge: "Faire circuler l'état du personnage (points de vie, inventaire, argent, sorts) entre tous les menus du jeu.",
+      tags: ["Go"],
+      repo: "https://github.com/NardenLaSouris/Projet-red",
+      demo: "",
+      media: [
+        { src: "/assets/projets/red/combat.webp", alt: "Combat dans le terminal : points de vie et menu des compétences", caption: "Un combat réel : tours, points de vie et compétences", frame: "none", w: 1164, h: 1248 },
+        { src: "/assets/projets/red/stats.webp", alt: "Création d'un personnage puis affichage de ses statistiques", caption: "Création d'un personnage et ses statistiques", frame: "none", w: 1164, h: 1914 },
+      ],
     },
   ],
 
-  // Projets secondaires : plus courts
+  // Projets secondaires : plus courts, avec une capture si elle existe
   secondary: [
     {
-      title: "Hangman Classic",
+      title: "RPG tour par tour",
       category: "Jeux",
-      description:
-        "Le jeu du pendu en Go, avec trois niveaux de difficulté et des lettres en art ASCII. Un mode multijoueur avec Firebase est commencé.",
-      tags: ["Go", "Firebase"],
-      repo: "https://github.com/NardenLaSouris/Hangman-classic",
-    },
-    {
-      title: "Projet Red",
-      category: "Jeux",
-      description:
-        "Un jeu de combat au tour par tour en Go, avec des monstres tirés au hasard, des potions, un marchand, un forgeron et un livre de sorts.",
-      tags: ["Go"],
-      repo: "https://github.com/NardenLaSouris/Projet-red",
-    },
-    {
-      title: "GalaxiEat",
-      category: "Données",
-      description:
-        "La base de données d'une chaîne de restaurants : 7 tables reliées entre elles (restaurants, employés, plats, ingrédients, commandes).",
-      tags: ["SQL", "SQLite"],
-      repo: "https://github.com/NardenLaSouris/GalaxiEat",
+      kind: "TypeScript · équipe de trois",
+      description: "Un jeu de rôle en terminal réalisé à trois : 6 classes, un donjon de 5 salles, un boss final.",
+      contribution: "J'ai créé le dépôt et écrit la classe Prêtre (soin d'un allié). Le reste du jeu a été écrit par mes deux coéquipiers.",
+      tags: ["TypeScript", "Deno"],
+      repo: "https://github.com/NardenLaSouris/Projet_RPG_TypeScript",
+      media: [
+        { src: "/assets/projets/rpg/pretre.webp", alt: "Tour du Prêtre dans le RPG : actions Attaquer, Soigner, Objet", caption: "Le tour du Prêtre, la classe que j'ai écrite", frame: "none", w: 1130, h: 1702 },
+        { src: "/assets/projets/rpg/equipe.webp", alt: "Équipe choisie et début d'un combat contre trois ennemis", caption: "Équipe de trois aventuriers face à trois ennemis", frame: "none", w: 1130, h: 1332 },
+      ],
     },
     {
       title: "Ce portfolio",
       category: "Web",
-      description:
-        "Ce site, écrit en HTML, CSS et JavaScript sans framework. Tout le contenu tient dans un fichier de configuration et un petit serveur Node.js le sert sur Clever Cloud.",
+      kind: "HTML, CSS, JavaScript",
+      description: "Sans framework : tout le contenu tient dans un fichier de configuration, servi par un petit serveur Node.js sans dépendance sur Clever Cloud, avec une préproduction séparée.",
       tags: ["HTML", "CSS", "JavaScript", "Node.js"],
       repo: "https://github.com/NardenLaSouris/portfolio-",
+      media: [
+        { src: "/assets/projets/portfolio/accueil.webp", alt: "Page d'accueil du portfolio en thème sombre", caption: "La page d'accueil", frame: "none", w: 1440, h: 900 },
+        { src: "/assets/projets/portfolio/orion.webp", alt: "Schéma interactif de l'architecture d'ORION dans l'étude de cas", caption: "L'étude de cas ORION : schéma d'architecture interactif", frame: "none", w: 1440, h: 900 },
+      ],
     },
   ],
 
+  // Premiers projets : liste compacte
+  early: [
+    { title: "Puissance 4", note: "Python, programmation orientée objet · lycée", repo: "https://github.com/NardenLaSouris/connect-4-python" },
+    { title: "Solveur de Sudoku", note: "Python, backtracking · lycée", repo: "https://github.com/NardenLaSouris/Sudoku-Solver-Python" },
+    { title: "Pendu", note: "Python, bases du langage · lycée", repo: "https://github.com/NardenLaSouris/Hangman-Python" },
+    { title: "Piscine Go", note: "Exercices d'algorithmique en Go · Nantes, 2025", repo: "https://github.com/NardenLaSouris/Piscine-go-nantes-2526" },
+  ],
+
+  // Parcours : reconstruit d'après les dates réelles des dépôts
   experience: [
     {
-      period: "2025 — Aujourd'hui",
-      title: "Développeur web",
-      place: "Freelance / projets personnels",
-      text: "Conception et développement de sites et d'applications web, de la maquette au déploiement.",
-      skills: ["Conception", "Développement full-stack", "Déploiement"],
+      period: "Depuis septembre 2026",
+      title: "ORION, assistante personnelle locale",
+      place: "Projet personnel",
+      text: "Trois générations en deux mois, une V3 en production depuis le 4 novembre 2026 : architecture modulaire, autonomie contrôlée, supervision et déploiement outillé.",
+      skills: ["Architecture logicielle", "IA locale", "Exploitation en production"],
     },
     {
-      period: "2023 — 2025",
-      title: "Formation en développement",
-      place: "École / université",
-      text: "Algorithmique, développement web full-stack, bases de données et gestion de projet.",
-      skills: ["Algorithmique", "Bases de données", "Gestion de projet"],
+      period: "2025 — 2026",
+      title: "Formation en développement informatique",
+      place: "Nantes", // ⚠️ à compléter : nom de l'école
+      text: "Piscine Go, jeux en Go, base de données relationnelle, RPG en TypeScript en équipe de trois, application web déployée en continu en binôme.",
+      skills: ["Go", "SQL", "Travail en équipe", "CI/CD"],
+    },
+    {
+      period: "Lycée",
+      title: "Premiers programmes",
+      place: "Projets de lycée en Python",
+      text: "Puissance 4 en programmation orientée objet, solveur de Sudoku, jeu du pendu.",
+      skills: ["Python", "Algorithmique"],
     },
   ],
 };
