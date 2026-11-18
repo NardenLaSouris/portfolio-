@@ -123,8 +123,9 @@
           <li><a href="#control"><span>4</span>ORION Control</a></li>
           <li><a href="#terminal"><span>5</span>ORION OS</a></li>
           <li><a href="#evolution"><span>6</span>Évolution</a></li>
-          <li><a href="#infrastructure"><span>7</span>Infrastructure</a></li>
-          <li><a href="#ambition"><span>8</span>Ambition</a></li>
+          <li><a href="#resultats"><span>7</span>Résultats</a></li>
+          <li><a href="#infrastructure"><span>8</span>Infrastructure</a></li>
+          <li><a href="#ambition"><span>9</span>Ambition</a></li>
         </ol>
       </div>
     </nav>
@@ -563,6 +564,37 @@
       </div>
     </section>
 
+    <!-- ================= RÉSULTATS ================= -->
+    <section id="resultats" class="section" aria-labelledby="res-title">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Résultats techniques</p>
+          <h2 class="section__title" id="res-title">Ce qui a été mesuré</h2>
+          <p class="section__lead">Chaque valeur vient d'un relevé daté dans la documentation d'ORION ou dans ORION Control. Les dates diffèrent : chaque mesure est donnée telle qu'elle a été prise.</p>
+        </header>
+        <div class="o-res reveal" tabindex="0" role="region" aria-label="Tableau des mesures (défilement horizontal possible)">
+          <table>
+            <thead><tr><th scope="col">Mesure</th><th scope="col">Valeur</th><th scope="col">Relevé</th><th scope="col">Source</th></tr></thead>
+            <tbody>
+            <tr><th scope="row"><span class="o-res__dom">Tests</span>Dernière suite complète</th><td class="o-res__val">5 095 réussis · 0 échec inattendu</td><td>15 nov. 2026</td><td class="o-res__src">Audit de l'état V3 (29 ignorés, 33 échecs attendus)</td></tr>
+            <tr><th scope="row"><span class="o-res__dom">Tests</span>Couverture du code</th><td class="o-res__val">86 % de 13 252 instructions</td><td>oct. 2026, V2</td><td class="o-res__src">Feuille de route, chantier 7</td></tr>
+            <tr><th scope="row"><span class="o-res__dom">Qualité</span>Choix d'outil par le vrai LLM</th><td class="o-res__val">86,7 % de réussite</td><td>17 nov. 2026</td><td class="o-res__src">Banc du vrai LLM, 41 appels sans échec</td></tr>
+            <tr><th scope="row"><span class="o-res__dom">Qualité</span>Compréhension (jeu de test)</th><td class="o-res__val">37 → 41 sur 44</td><td>oct. 2026</td><td class="o-res__src">Feuille de route, chantier 5</td></tr>
+            <tr><th scope="row"><span class="o-res__dom">Performance</span>Choix d'outil, à chaud</th><td class="o-res__val">1,2–1,7 s → 0,63–0,71 s</td><td>oct. 2026</td><td class="o-res__src">Feuille de route, chantier 5</td></tr>
+            <tr><th scope="row"><span class="o-res__dom">Performance</span>Commande simple, sans LLM</th><td class="o-res__val">0,2 ms au lieu de 0,5 à 1,4 s</td><td>oct. 2026</td><td class="o-res__src">README, nouveautés de la V2</td></tr>
+            <tr><th scope="row"><span class="o-res__dom">Exploitation</span>Disponibilité des services</th><td class="o-res__val">100 % · agent du PC 99,9 %</td><td>7 jours au 18 nov.</td><td class="o-res__src">SENTINEL, écran « Services et autonomie »</td></tr>
+            <tr><th scope="row"><span class="o-res__dom">Exploitation</span>Relances automatiques</th><td class="o-res__val">aucune en 15 jours</td><td>16 nov. 2026</td><td class="o-res__src">Audit de l'état V3</td></tr>
+            <tr><th scope="row"><span class="o-res__dom">Exploitation</span>Coupure par déploiement</th><td class="o-res__val">≈ 20 s</td><td>17 nov. 2026</td><td class="o-res__src">Document d'exploitation</td></tr>
+            <tr><th scope="row"><span class="o-res__dom">Données</span>Sauvegarde de la nuit</th><td class="o-res__val">vérifiée · 632 fichiers · 44 Mo</td><td>18 nov. 2026</td><td class="o-res__src">SENTINEL, écran « Services et autonomie »</td></tr>
+            <tr><th scope="row"><span class="o-res__dom">Sécurité</span>Registre d'actions</th><td class="o-res__val">18 475 lignes · chaînage intact</td><td>18 nov. 2026</td><td class="o-res__src">ORION Control, page Autonomie</td></tr>
+            <tr><th scope="row"><span class="o-res__dom">Sécurité</span>Dépendances de production</th><td class="o-res__val">0 vulnérabilité connue (42 paquets)</td><td>oct. 2026</td><td class="o-res__src">pip-audit, feuille de route, chantier 6</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="o-res__note reveal">Limites assumées : il n'y a pas encore d'intégration continue ; les tests sont lancés à la main sur le Core avant chaque déploiement. La couverture date de la V2 et n'a pas été remesurée sur la V3.</p>
+      </div>
+    </section>
+
     <!-- ================= INFRASTRUCTURE ================= -->
     <section id="infrastructure" class="section o-dark" aria-labelledby="infra-title">
       <div class="container">
@@ -599,7 +631,7 @@
           <article class="reveal" style="--i:2"><h3>Health checks</h3><p>Un contrôle de santé externe toutes les 2 minutes, et SENTINEL qui sonde chaque ressource toutes les minutes.</p></article>
           <article class="reveal" style="--i:3"><h3>Sauvegardes</h3><p>Chaque nuit, bases copiées à chaud et vérifiées (SHA-256, intégrité SQLite). Rotation : 14 quotidiennes, 8 hebdomadaires, 12 mensuelles, plus une copie hors du Core.</p></article>
           <article class="reveal" style="--i:4"><h3>Données chiffrées</h3><p>Trois bases selon la sensibilité des données ; la base personnelle est chiffrée et sa clé n'est jamais copiée avec les sauvegardes.</p></article>
-          <article class="reveal" style="--i:5"><h3>Tests</h3><p>Plus de 5 100 tests automatiques. Dernière suite complète relevée : 4 983 réussis, 0 échec.</p></article>
+          <article class="reveal" style="--i:5"><h3>Tests</h3><p>Plus de 5 100 tests automatiques, lancés sur le Core avant chaque déploiement. Dernière suite complète : 5 095 réussis, 0 échec inattendu.</p></article>
         </div>
 
         <div class="o-unproven reveal" role="note" aria-labelledby="unproven-title">

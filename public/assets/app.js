@@ -153,6 +153,13 @@
   // Carte ORION : ses captures réelles, avec la même galerie que les autres projets
   if (f && f.media && $("#featuredMedia")) $("#featuredMedia").append(gallery(f));
 
+  // Statut d'un projet : abouti, en cours ou expérimental ; plus une précision éventuelle.
+  const STATUS = { done: "Abouti", ongoing: "En cours", experimental: "Expérimental" };
+  const statusBadge = (p) => p.status
+    ? el("span", { class: `pstatus pstatus--${p.status}` }, STATUS[p.status] + (p.statusNote ? ` · ${p.statusNote}` : ""))
+    : null;
+  const roleBadge = (p) => p.role ? el("span", { class: "prole" }, p.role) : null;
+
   /* ---------- Projets principaux : fiches complètes ---------- */
   const projects = C.projects || [];
   const caseCard = (p, i) =>
@@ -161,6 +168,7 @@
       el("div", { class: "case__body" },
         el("p", { class: "case__meta" }, el("span", {}, p.kind || p.category || ""), p.period ? el("span", {}, p.period) : null),
         el("h3", { class: "case__title" }, p.title),
+        el("p", { class: "case__badges" }, statusBadge(p), roleBadge(p)),
         el("p", { class: "case__summary" }, p.summary),
         el("dl", { class: "case__ps" },
           el("div", {}, el("dt", {}, "Contexte"), el("dd", {}, p.problem)),
@@ -185,6 +193,7 @@
       shot,
       el("div", { class: "mini__body" },
         p.kind ? el("p", { class: "mini__kind" }, p.kind) : null,
+        (p.status || p.role) ? el("p", { class: "case__badges" }, statusBadge(p), roleBadge(p)) : null,
         el("div", { class: "mini__head" },
           el("h4", {}, href ? el("a", { ...external(href), class: "mini__link" }, p.title) : p.title),
           href ? el("span", { class: "mini__icon", html: ICONS.arrow }) : null),
