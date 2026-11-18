@@ -22,7 +22,11 @@
   //   { src: "/assets/orion/wallpaper-stats-paysage.webp", … caption: "Écran paysage : services et autonomie" }
   //   { src: "/assets/orion/wallpaper-stats-portrait.webp", … caption: "Écran portrait : modules" }
   // La section reste masquée tant que la liste est vide.
-  const WALLPAPERS = [];
+  const WALLPAPERS = [
+    { src: "/assets/orion/wallpaper-principal.webp", alt: "Fond d'écran principal d'ORION : sphère animée reliée aux machines, horloge, météo, santé du Core et état des PC ; agenda, présence, post-it et montants floutés", caption: "Fond d'écran principal : le cœur d'ORION relié à ses machines, météo, santé et activité (données privées floutées)", w: 1920, h: 1080 },
+    { src: "/assets/orion/wallpaper-stats-paysage.webp", alt: "Écran paysage : disponibilité des services sur 7 jours, autonomie, sauvegarde de la nuit, terminaux, appels et état des modules", caption: "Écran paysage : services, autonomie, sauvegarde de la nuit et modules", w: 1920, h: 1080 },
+    { src: "/assets/orion/wallpaper-stats-portrait.webp", alt: "Écran portrait : modules d'ORION (NEWS, WATCH, EVOLVE, jeux, missions…), finance et agenda floutés", caption: "Écran portrait : les modules (finance et agenda floutés)", w: 1080, h: 1920 },
+  ];
 
   // Le visage d'ORION, capturé dans ses quatre états (page réelle orion/face/static).
   const FACES = {
