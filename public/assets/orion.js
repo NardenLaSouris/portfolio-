@@ -16,6 +16,14 @@
     { src: "/assets/orion/control-evolution.webp", alt: "ORION Control : module EVOLVE, niveau, anomalies, correctifs et propositions", caption: "Évolution : niveau d'EVOLVE, anomalies et propositions", w: 1440, h: 900 },
   ];
 
+  // Fond d'écran d'ORION (Wallpaper Engine) : déposer les captures dans public/assets/orion/ puis les lister ici,
+  // dans cet ordre si possible. Masquer avant : agenda, rappels, notes, présence, montants, adresses.
+  //   { src: "/assets/orion/wallpaper-principal.webp", alt: "…", caption: "Fond d'écran principal : le visage au centre…", w: …, h: … }
+  //   { src: "/assets/orion/wallpaper-stats-paysage.webp", … caption: "Écran paysage : services et autonomie" }
+  //   { src: "/assets/orion/wallpaper-stats-portrait.webp", … caption: "Écran portrait : modules" }
+  // La section reste masquée tant que la liste est vide.
+  const WALLPAPERS = [];
+
   // Le visage d'ORION, capturé dans ses quatre états (page réelle orion/face/static).
   const FACES = {
     standby: { src: "/assets/orion/visage-standby.webp", label: "Veille", text: "En veille, le visage s'efface : seul son nom reste visible, en sourdine." },
@@ -224,20 +232,21 @@
   firstAutonomy.click();
 
   // Captures : la première en grand, les suivantes en galerie ; toutes s'agrandissent au clic.
-  if (SHOTS.length) {
-    const open = (i, trigger) => window.Lightbox && window.Lightbox.open(SHOTS, i, trigger);
+  // Galeries de captures : la première en grand, les suivantes en dessous ; toutes s'agrandissent au clic.
+  const gallery = (list, gridId, boxId) => {
+    if (!list.length) return;
+    const open = (i, trigger) => window.Lightbox && window.Lightbox.open(list, i, trigger);
     const tile = (s, i, cls) => {
       const b = el("button", { class: cls, type: "button", "aria-label": `Agrandir : ${s.caption || s.alt}` },
         el("img", { src: s.src, alt: s.alt, width: s.w, height: s.h, loading: "lazy", decoding: "async" }));
       b.addEventListener("click", () => open(i, b));
       return el("figure", {}, b, s.caption ? el("figcaption", {}, s.caption) : null);
     };
-    $("#controlShotsGrid").append(
-      tile(SHOTS[0], 0, "o-shot o-shot--main"),
-      ...SHOTS.slice(1).map((s, i) => tile(s, i + 1, "o-shot"))
-    );
-    $("#controlShots").hidden = false;
-  }
+    $(gridId).append(tile(list[0], 0, "o-shot o-shot--main"), ...list.slice(1).map((s, i) => tile(s, i + 1, "o-shot")));
+    $(boxId).hidden = false;
+  };
+  gallery(SHOTS, "#controlShotsGrid", "#controlShots");
+  gallery(WALLPAPERS, "#wallShotsGrid", "#wallShots");
 
   /* ---------- Le visage : un état à la fois ---------- */
   const faceBox = $("#faceStates");
