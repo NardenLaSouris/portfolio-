@@ -95,24 +95,30 @@
           </div>
         </div>
 
-        <aside class="hero__card reveal" aria-label="En bref">
+        <div class="hero__card reveal" role="group" aria-label="En bref">
           <div class="hero__card-head">
             <span class="hero__card-dots" aria-hidden="true"><i></i><i></i><i></i></span>
             <span class="mono">profil.json</span>
           </div>
           <dl class="facts" id="facts"></dl>
           <ul class="hero__socials" id="heroSocials"></ul>
-        </aside>
+        </div>
       </div>
     </section>
 
     <!-- PROFIL -->
     <section id="about" class="section" aria-labelledby="about-title">
       <div class="container about">
-        <header class="section__head reveal">
-          <p class="eyebrow"><span class="mono">01</span> Profil</p>
-          <h2 class="section__title" id="about-title">Qui je suis</h2>
-        </header>
+        <div class="about__side">
+          <header class="section__head reveal">
+            <p class="eyebrow"><span class="mono">01</span> Profil</p>
+            <h2 class="section__title" id="about-title">Qui je suis</h2>
+          </header>
+          <div class="traits reveal" id="traitsBlock" hidden>
+            <h3 class="traits__title">Ma façon de travailler</h3>
+            <ul class="traits__list" id="traits"></ul>
+          </div>
+        </div>
         <div id="aboutText" class="about__text reveal"></div>
       </div>
     </section>

@@ -28,6 +28,12 @@
     { src: "/assets/orion/wallpaper-stats-portrait.webp", alt: "Écran portrait : modules d'ORION (NEWS, WATCH, EVOLVE, jeux, agenda, missions…), finance floutée", caption: "Écran portrait : les modules (finance floutée)", w: 1080, h: 1920 },
   ];
 
+  // Démonstration vidéo (section « En action », masquée tant que VIDEO est null). Fichier conseillé : MP4 H.264,
+  // 1280×720, 30 à 60 s, moins de 8 Mo, sous-titres en WebVTT (la voix d'ORION doit rester compréhensible sans le son).
+  //   const VIDEO = { src: "/assets/orion/demo.mp4", poster: "/assets/orion/demo-poster.webp", captions: "/assets/orion/demo.fr.vtt",
+  //                   caption: "Une demande réelle, du mot de réveil à la réponse : …" };
+  const VIDEO = null;
+
   // Le visage d'ORION, capturé dans ses quatre états (page réelle orion/face/static).
   const FACES = {
     standby: { src: "/assets/orion/visage-standby.webp", label: "Veille", text: "En veille, tant qu'elle n'a pas entendu « ORION » : les anneaux tournent lentement, la lueur est atténuée, le motif reste simple." },
@@ -211,7 +217,7 @@
     const siblings = CONTROL.find(([g]) => g === group)[1].filter(([n]) => n !== name);
     controlView.replaceChildren(
       el("p", { class: "o-window__group" }, group),
-      el("h4", {}, name),
+      el("h3", {}, name),
       el("p", { class: "o-window__desc" }, desc),
       siblings.length
         ? el("div", { class: "o-window__more" },
@@ -309,6 +315,16 @@
     { src: "/assets/orion/terminal-reglages.webp", alt: "Réglages du terminal : appairage au Core, Wi-Fi, son et luminosité (réseau masqué)", caption: "Les réglages : appairage, Wi-Fi, son, luminosité (réseau masqué)" },
   ];
   $$(".o-phone__shot").forEach((b) => b.addEventListener("click", () => window.Lightbox && window.Lightbox.open(TERMINAL, Number(b.dataset.i), b)));
+
+  /* ---------- Démonstration vidéo ---------- */
+  if (VIDEO) {
+    const v = $("#demoVideo");
+    v.src = VIDEO.src;
+    if (VIDEO.poster) v.poster = VIDEO.poster;
+    if (VIDEO.captions) v.append(el("track", { kind: "captions", srclang: "fr", label: "Français", src: VIDEO.captions, default: "" }));
+    $("#demoCaption").textContent = VIDEO.caption || "";
+    $("#demo").hidden = false;
+  }
 
   /* ---------- Constellation : liens du Core vers chaque élément ---------- */
   const sky = $("#skyLines");

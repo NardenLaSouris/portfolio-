@@ -792,3 +792,27 @@ body.menu-open { overflow: hidden; }
   .featured .machines, .featured__label, .featured__list { display: none; }
   .featured__body { margin-bottom: 20px; }
 }
+
+/* ---------- Profil : façon de travailler ---------- */
+.about__side { display: grid; gap: 36px; min-width: 0; }
+.about__text p:last-child:not(:first-child) { color: var(--text); }
+.traits { padding-top: 24px; border-top: 1px solid var(--border); max-width: 470px; }
+.traits__title { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-2); margin-bottom: 14px; }
+.traits__list { display: grid; gap: 14px; }
+.traits__list li { display: grid; grid-template-columns: 22px minmax(0, 1fr); column-gap: 10px; }
+.traits__list li::before { content: ""; grid-row: span 2; width: 8px; height: 8px; margin-top: 0.55em; transform: rotate(45deg); background: var(--accent-2); }
+.traits__list strong { font-size: 1rem; }
+.traits__list span { color: var(--muted); font-size: 0.93rem; }
+
+/* ---------- Carte ORION : captures réelles ---------- */
+.featured__media .media__caption { color: rgba(244, 239, 228, 0.7); }
+.featured__media .media__thumb { background: #0d1210; border-color: rgba(244, 239, 228, 0.16); }
+.featured__media .media__main img { max-height: 360px; }
+@media (max-width: 1024px) {
+  .about__side { display: contents; }
+  .about .section__head { order: 1; }
+  .about__text { order: 2; }
+  .traits { order: 3; margin-top: 24px; max-width: none; }
+}
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

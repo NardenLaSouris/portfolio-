@@ -99,6 +99,20 @@
       </div>
     </section>
 
+    <!-- Démonstration vidéo : masquée tant que VIDEO (orion.js) est vide -->
+    <section class="o-demo" id="demo" aria-labelledby="demo-title" hidden>
+      <div class="container o-demo__inner">
+        <div class="o-demo__text">
+          <p class="eyebrow">En action</p>
+          <h2 class="section__title" id="demo-title">ORION, en une minute</h2>
+          <p class="o-demo__caption" id="demoCaption"></p>
+        </div>
+        <figure class="o-demo__player">
+          <video id="demoVideo" controls playsinline preload="none"></video>
+        </figure>
+      </div>
+    </section>
+
     <!-- Sous-navigation de l'étude de cas -->
     <nav class="o-steps" aria-label="Parcours de l'étude de cas">
       <div class="container">
@@ -161,7 +175,7 @@
           <h3 class="o-compare__title">Ce qui la distingue d'une assistante conversationnelle</h3>
           <div class="o-compare__table" role="table" aria-label="Comparaison">
             <div class="o-compare__row o-compare__row--head" role="row">
-              <span role="columnheader"></span>
+              <span role="columnheader"><span class="sr-only">Critère</span></span>
               <span role="columnheader">Assistante conversationnelle</span>
               <span role="columnheader">ORION</span>
             </div>
@@ -220,7 +234,7 @@
             <button class="o-node o-node--base" data-node="infra" type="button"><b>INFRASTRUCTURE</b><small>Machines, services, sauvegardes, supervision</small></button>
           </div>
 
-          <aside class="o-arch__panel" id="archPanel" aria-live="polite">
+          <div class="o-arch__panel" id="archPanel" aria-live="polite">
             <p class="o-arch__kicker" id="archKicker">Composant</p>
             <h3 id="archTitle">CORE</h3>
             <p id="archText"></p>
@@ -231,7 +245,7 @@
                 <span>Suivre une demande</span>
               </button>
             </div>
-          </aside>
+          </div>
         </div>
 
         <ol class="o-trace reveal" id="traceSteps" aria-label="Trajet d'une demande">
@@ -571,6 +585,14 @@
           </ol>
         </div>
 
+        <dl class="o-keyfigs reveal" aria-label="Chiffres d'exploitation">
+          <div><dt>Coupure par déploiement</dt><dd>≈ 20 s</dd></div>
+          <div><dt>Watchdog systemd</dt><dd>90 s</dd></div>
+          <div><dt>Contrôle de santé, toutes les</dt><dd>2 min</dd></div>
+          <div><dt>Sauvegardes gardées</dt><dd>14 · 8 · 12</dd></div>
+          <div><dt>Dernière suite de tests</dt><dd>0 échec</dd></div>
+        </dl>
+
         <div class="o-infra">
           <article class="reveal" style="--i:0"><h3>Service durci</h3><p>Compte dédié sans privilège, code et configuration en lecture seule, écriture limitée au dossier des données, règles réseau propres au service.</p></article>
           <article class="reveal" style="--i:1"><h3>Watchdog et relance</h3><p>Sans signal de vie pendant 90 s, systemd arrête et relance le service. Au-delà de 5 échecs en 15 minutes, une alerte part.</p></article>
@@ -580,7 +602,7 @@
           <article class="reveal" style="--i:5"><h3>Tests</h3><p>Plus de 5 100 tests automatiques. Dernière suite complète relevée : 4 983 réussis, 0 échec.</p></article>
         </div>
 
-        <aside class="o-unproven reveal" aria-labelledby="unproven-title">
+        <div class="o-unproven reveal" role="note" aria-labelledby="unproven-title">
           <h3 id="unproven-title">Ce qui n'est pas encore prouvé</h3>
           <p>La documentation d'exploitation sépare ce qui a été constaté de ce qui est seulement écrit. Restent à jouer en réel pendant la clôture :</p>
           <ul>
@@ -590,7 +612,7 @@
             <li>la suspension et l'arrêt d'urgence de l'autonomie ;</li>
             <li>la copie quotidienne des sauvegardes hors du Core (aujourd'hui hebdomadaire).</li>
           </ul>
-        </aside>
+        </div>
       </div>
     </section>
 

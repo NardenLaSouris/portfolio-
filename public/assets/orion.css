@@ -288,7 +288,7 @@ code { font-family: var(--mono); font-size: 0.88em; padding: 1px 6px; border-rad
 .o-window__nav button.is-active { background: rgba(196, 169, 106, 0.14); color: var(--gold); }
 .o-window__view { padding: 28px; display: flex; flex-direction: column; gap: 10px; }
 .o-window__group { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
-.o-window__view h4 { font-family: var(--display); font-weight: 400; font-size: 1.4rem; letter-spacing: 0.04em; }
+.o-window__view h3 { font-family: var(--display); font-weight: 400; font-size: 1.4rem; letter-spacing: 0.04em; }
 .o-window__desc { color: #b5bdb4; max-width: 46ch; font-size: 1.02rem; }
 .o-window__more { margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(244, 239, 228, 0.08); }
 .o-window__more > p { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #8f998f; font-weight: 600; margin-bottom: 10px; }
@@ -631,3 +631,60 @@ code { font-family: var(--mono); font-size: 0.88em; padding: 1px 6px; border-rad
 .o-shots__grid { align-items: start; }
 #wallShotsGrid { grid-template-columns: minmax(0, 3.16fr) minmax(0, 1fr); }
 @media (max-width: 760px) { #wallShotsGrid { grid-template-columns: 1fr; } #wallShotsGrid figure:last-child { max-width: 300px; } }
+
+/* ==========================================================
+   Variation des compositions : moins de grilles de cartes
+   ========================================================== */
+
+/* Capacités : liste éditoriale à filets ; AUTONOMY reste la carte mise en avant. */
+.o-caps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px; }
+.o-cap:not(.o-cap--wide) {
+  padding: 26px 0; border: 0; border-top: 1px solid var(--border); border-radius: 0; background: none;
+  display: grid; grid-template-columns: 170px minmax(0, 1fr); column-gap: 24px; row-gap: 10px; align-items: start;
+}
+.o-cap:not(.o-cap--wide) header { grid-row: span 2; }
+.o-cap:not(.o-cap--wide) .o-cap__note { grid-column: 2; margin-top: 0; padding-top: 0; border-top: 0; font-style: italic; }
+.o-cap--wide { margin: 18px 0 26px; }
+@media (hover: hover) { .o-cap:not(.o-cap--wide):hover { transform: none; box-shadow: none; border-top-color: var(--accent-2); } }
+
+/* Infrastructure : bande de chiffres, puis liste sur deux colonnes sans cartes. */
+.o-keyfigs {
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 44px 0 0;
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.o-keyfigs div { padding: 18px 20px; border-left: 1px solid var(--border); }
+.o-keyfigs div:first-child { border-left: 0; padding-left: 0; }
+.o-keyfigs dt { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
+.o-keyfigs dd { margin-top: 6px; font-family: var(--display); font-size: clamp(1rem, 1.6vw, 1.25rem); color: var(--gold); font-variant-numeric: tabular-nums; }
+.o-infra { gap: 0 56px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 8px; }
+.o-infra article { padding: 22px 0; border: 0; border-radius: 0; background: none; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 170px minmax(0, 1fr); column-gap: 24px; }
+.o-infra h3 { margin: 0; color: var(--cream); }
+
+/* Ambition : colonnes ouvertes, sans cadre. */
+.o-ambition__cols article { padding: 4px 0 0 22px; border: 0; border-left: 1px solid var(--border-strong); border-radius: 0; background: none; }
+
+@media (max-width: 1024px) {
+  .o-caps { grid-template-columns: 1fr; }
+  .o-keyfigs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .o-keyfigs div:nth-child(4) { border-left: 0; padding-left: 0; }
+  .o-keyfigs div:nth-child(n + 4) { border-top: 1px solid var(--border); }
+  .o-infra { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .o-cap:not(.o-cap--wide), .o-infra article { grid-template-columns: 1fr; }
+  .o-cap:not(.o-cap--wide) header { grid-row: auto; }
+  .o-cap:not(.o-cap--wide) .o-cap__note { grid-column: 1; }
+  .o-keyfigs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .o-keyfigs div, .o-keyfigs div:nth-child(4) { border-left: 0; padding: 14px 0; }
+  .o-keyfigs div:nth-child(even) { border-left: 1px solid var(--border); padding-left: 14px; }
+  .o-keyfigs div:nth-child(n + 3) { border-top: 1px solid var(--border); }
+  .o-keyfigs div:last-child { grid-column: 1 / -1; }
+}
+
+/* Démonstration vidéo */
+.o-demo { padding: 72px 0; border-bottom: 1px solid var(--border); }
+.o-demo__inner { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); gap: 48px; align-items: center; }
+.o-demo__caption { margin-top: 14px; color: var(--muted); }
+.o-demo__player { margin: 0; border-radius: 14px; overflow: hidden; border: 1px solid var(--border-strong); background: #0d110f; box-shadow: var(--shadow); }
+.o-demo__player video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #0d110f; }
+@media (max-width: 1024px) { .o-demo__inner { grid-template-columns: 1fr; gap: 24px; } }

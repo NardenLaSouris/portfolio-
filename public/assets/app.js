@@ -60,6 +60,10 @@
 
   /* ---------- Profil ---------- */
   $("#aboutText").append(...(C.about || []).map((p) => el("p", {}, p)));
+  if ((C.traits || []).length) {
+    $("#traits").append(...C.traits.map((t) => el("li", {}, el("strong", {}, t.title), el("span", {}, t.text))));
+    $("#traitsBlock").hidden = false;
+  }
 
   /* ---------- Projet phare ---------- */
   const tagList = (tags = [], cls = "tags") => el("ul", { class: cls, "aria-label": "Technologies" }, tags.map((t) => el("li", {}, t)));
@@ -87,7 +91,9 @@
         el("div", { class: "ps" },
           el("div", {}, el("h4", {}, "Le problème"), el("p", {}, f.problem)),
           el("div", {}, el("h4", {}, "La solution"), el("p", {}, f.solution))),
-        f.machines
+        f.media
+          ? el("div", { class: "featured__media", id: "featuredMedia" })
+          : f.machines
           ? el("ul", { class: "machines", "aria-label": "Architecture" },
               f.machines.map((m) => el("li", {}, el("strong", {}, m.name), el("span", {}, m.role))))
           : null),
@@ -143,6 +149,9 @@
     render();
     return el("figure", { class: "media" }, main, caption, thumbs.length ? el("div", { class: "media__thumbs" }, thumbs) : null);
   };
+
+  // Carte ORION : ses captures réelles, avec la même galerie que les autres projets
+  if (f && f.media && $("#featuredMedia")) $("#featuredMedia").append(gallery(f));
 
   /* ---------- Projets principaux : fiches complètes ---------- */
   const projects = C.projects || [];

@@ -30,8 +30,16 @@ window.PORTFOLIO = {
   ],
 
   about: [
-    "J'aime suivre un projet en entier, du schéma de la base de données jusqu'à la mise en ligne.",
-    "J'ai appris en construisant : des jeux en Go, une base de données relationnelle, une application Express déployée sur Scalingo en binôme, un RPG en TypeScript en équipe. Mon plus gros projet est ORION, une assistante vocale qui tourne sur trois machines de mon réseau et que j'exploite en production.",
+    "Je suis développeur à Nantes. Ce qui m'intéresse, c'est de comprendre un système en entier : la donnée, la logique, l'interface, puis ce qui se passe une fois en production.",
+    "J'ai appris en construisant : des jeux en Go, une base relationnelle, une application déployée en continu en binôme, un RPG en équipe. Depuis septembre 2026, je construis ORION, une assistante vocale qui pilote ma maison et que j'exploite au quotidien.",
+    "Quand je ne code pas, je joue. Au point d'avoir appris à ORION à allumer ma PS5 à la voix.",
+  ],
+
+  // Ma façon de travailler : chaque trait renvoie à un fait vérifiable dans mes projets
+  traits: [
+    { title: "Je mesure avant de corriger", text: "Sur ORION, c'est une mesure qui a révélé un prompt tronqué sans avertissement. Corrigé, le choix d'outil est passé de 1,2–1,7 s à 0,63–0,71 s." },
+    { title: "J'écris ce qui n'est pas prouvé", text: "La documentation d'ORION sépare ce qui a été constaté en réel de ce qui est seulement écrit dans le code, et l'étude de cas le montre aussi." },
+    { title: "Je vais jusqu'à la mise en ligne", text: "Trois versions d'ORION en deux mois, la dernière en production depuis le 4 novembre 2026, avec sauvegardes vérifiées et contrôle de santé." },
   ],
 
   // Faits rapides (factuels uniquement)
@@ -130,6 +138,12 @@ window.PORTFOLIO = {
       "Autonomie contrôlée : interrupteur, autorisations bornées et registre d'actions chaîné.",
       "En production depuis le 4 novembre 2026 : déploiement avec contrôle de santé, sauvegardes vérifiées chaque nuit, plus de 5 100 tests.",
       "ORION Control, une application Windows de 26 pages, pour la superviser et régler ce qu'elle a le droit de faire.",
+    ],
+    // Captures réelles, en production (données personnelles masquées)
+    media: [
+      { src: "/assets/orion/control-tableau-de-bord.webp", alt: "ORION Control : tableau de bord, ORION opérationnelle", caption: "ORION Control, l'application de supervision, en production", frame: "none", w: 1440, h: 900 },
+      { src: "/assets/orion/wallpaper-principal.webp", alt: "Fond d'écran d'ORION sur le PC : sphère reliée aux machines, météo, santé et activité", caption: "Son fond d'écran sur le PC : machines, santé, activité", frame: "none", w: 1920, h: 1080 },
+      { src: "/assets/orion/terminal-panneau.webp", alt: "Terminal ORION OS : lumières, mode intimité et volume", caption: "Le terminal ORION OS : lumières, mode intimité, volume", frame: "none", w: 1560, h: 720 },
     ],
     tags: ["Python", "Ollama", "faster-whisper", "Piper", "SQLite", "Expo / React Native", "Linux", "systemd"],
     repo: "", // dépôt privé
