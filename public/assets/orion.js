@@ -259,8 +259,8 @@
   gallery(WALLPAPERS, "#wallShotsGrid", "#wallShots");
 
   /* ---------- Le visage : la vraie page, animée, pilotée par les onglets ---------- */
-  // Sans « réduire les animations », la page réelle du visage (copie dans /orion-visage/) tourne dans un cadre et
-  // reçoit l'état par son API, OrionFace.setVisualState() ; sinon, les captures fixes de chaque état.
+  // La page réelle du visage (copie dans /orion-visage/) tourne dans un cadre et reçoit l'état par son API,
+  // OrionFace.setVisualState() ; les captures fixes ne servent que si elle ne se charge pas.
   const faceBox = $("#faceStates");
   if (faceBox) {
     const stage = $("#faceStage");
@@ -273,8 +273,9 @@
     };
     const push = () => { const f = api(); if (f) f.setVisualState(current); };
 
-    if (!reducedMotion.matches) {
-      frame = el("iframe", { class: "o-face__frame", src: "/orion-visage/index.html", title: "Visage animé d'ORION", loading: "lazy", tabindex: "-1" });
+    // Comme sur les écrans d'ORION, le visage s'anime toujours, y compris avec « réduire les animations ».
+    {
+      frame = el("iframe", { class: "o-face__frame", src: "/orion-visage/index.html", title: "Visage animé d'ORION", tabindex: "-1" });
       // Le visage ne répond pas (page bloquée, script refusé) : le cadre est retiré, la capture fixe reste.
       frame.addEventListener("load", () => {
         if (!api()) { frame.remove(); frame = null; $("#faceNote").textContent = "Captures de la page réelle du visage, dans ses quatre états."; return; }
