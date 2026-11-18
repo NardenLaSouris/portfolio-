@@ -26,7 +26,7 @@
 
   // Le visage d'ORION, capturé dans ses quatre états (page réelle orion/face/static).
   const FACES = {
-    standby: { src: "/assets/orion/visage-standby.webp", label: "Veille", text: "En veille, le visage s'efface : seul son nom reste visible, en sourdine." },
+    standby: { src: "/assets/orion/visage-standby.webp", label: "Veille", text: "En veille, tant qu'elle n'a pas entendu « ORION » : les anneaux tournent lentement, la lueur est atténuée, le motif reste simple." },
     listening: { src: "/assets/orion/visage-listening.webp", label: "Écoute", text: "Après « ORION », les anneaux s'ouvrent et les axes s'éclairent pendant qu'elle écoute." },
     thinking: { src: "/assets/orion/visage-thinking.webp", label: "Réflexion", text: "Pendant qu'elle réfléchit, les anneaux tournent plus vite et le motif se densifie." },
     speaking: { src: "/assets/orion/visage-speaking.webp", label: "Réponse", text: "Quand elle répond, le visage suit le niveau de sa voix." },
@@ -248,30 +248,47 @@
   gallery(SHOTS, "#controlShotsGrid", "#controlShots");
   gallery(WALLPAPERS, "#wallShotsGrid", "#wallShots");
 
-  /* ---------- Le visage : un état à la fois ---------- */
+  /* ---------- Le visage : la vraie page, animée, pilotée par les onglets ---------- */
+  // Sans « réduire les animations », la page réelle du visage (copie dans /orion-visage/) tourne dans un cadre et
+  // reçoit l'état par son API, OrionFace.setVisualState() ; sinon, les captures fixes de chaque état.
   const faceBox = $("#faceStates");
   if (faceBox) {
+    const stage = $("#faceStage");
     const img = $("#faceImg");
     const txt = $("#faceText");
+    let frame = null;
+    let current = "standby";
+    const api = () => frame && frame.contentWindow && (frame.contentWindow.OrionFace || frame.contentWindow.JarvisFace);
+    const push = () => { const f = api(); if (f) f.setVisualState(current); };
+
+    if (!reducedMotion.matches) {
+      frame = el("iframe", { class: "o-face__frame", src: "/orion-visage/index.html", title: "Visage animé d'ORION", loading: "lazy", tabindex: "-1" });
+      frame.addEventListener("load", () => { push(); stage.classList.add("is-live"); });
+      stage.append(frame);
+      $("#faceNote").textContent = "La vraie page du visage d'ORION, animée en direct ; les onglets lui donnent son état.";
+      // Hors de l'écran, le cadre est masqué : le navigateur n'anime plus le visage.
+      new IntersectionObserver((entries) => entries.forEach((e) => { frame.style.visibility = e.isIntersecting ? "visible" : "hidden"; }))
+        .observe(stage);
+    }
+
     const tabs = Object.entries(FACES).map(([key, f]) => {
       const b = el("button", { type: "button", role: "tab", class: "o-face__tab", "aria-selected": "false", "data-state": key }, f.label);
       b.addEventListener("click", () => {
         tabs.forEach((t) => t.setAttribute("aria-selected", String(t === b)));
+        current = key;
+        txt.textContent = f.text;
+        if (frame) return push();
         img.classList.remove("is-in");
         requestAnimationFrame(() => {
           img.src = f.src;
           img.alt = `Le visage d'ORION en état : ${f.label.toLowerCase()}`;
-          txt.textContent = f.text;
           img.classList.add("is-in");
         });
       });
       return b;
     });
     faceBox.append(...tabs);
-    tabs[1].click();
-    $("#faceZoom").addEventListener("click", () => window.Lightbox && window.Lightbox.open(
-      Object.values(FACES).map((f) => ({ src: f.src, alt: `Le visage d'ORION : ${f.label}`, caption: `${f.label} — ${f.text}` })),
-      Object.keys(FACES).indexOf(tabs.find((t) => t.getAttribute("aria-selected") === "true").dataset.state), $("#faceZoom")));
+    tabs[0].click();
   }
 
   /* ---------- Terminal : captures agrandissables ---------- */

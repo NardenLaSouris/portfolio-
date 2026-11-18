@@ -22,6 +22,7 @@ Pour ajouter un CV, dépose `cv.pdf` dans `public/assets/` et mets `cv: "/assets
 - Les captures sont dans `public/assets/projets/<projet>/`, en WebP, et sont listées dans le champ `media` de chaque projet de `public/assets/config.js` (`src`, `alt`, `caption`, `frame`, `w`, `h`).
 - `frame: "browser"` ajoute un cadre de navigateur (capture d'une page web) ; `frame: "none"` laisse l'image telle quelle (terminal, schéma).
 - Toutes les captures sont réelles : applications lancées en local, parties jouées dans un vrai terminal, requêtes exécutées sur la base, schéma lu dans le script SQL.
+- Visage d'ORION animé : `public/orion-visage/` est une copie de la page réelle du visage (`orion/face/static` du dépôt ORION), sans flux d'événements ; l'étude de cas lui donne son état par `OrionFace.setVisualState()`. Pour la mettre à jour, recopier `face.js`, `face.css` et `michroma.woff2`.
 - Captures d'ORION Control : déposer les images dans `public/assets/orion/` et les lister dans `SHOTS`, en haut de `public/assets/orion.js`. La première s'affiche en grand, les autres en galerie.
 
 ## Lancer en local
