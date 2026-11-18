@@ -427,7 +427,7 @@
 
         <div class="o-shots" id="controlShots" hidden>
           <h3 class="sub-title">Captures de l'application</h3>
-          <p class="o-shots__intro">La vraie application, branchée sur un vrai Core V3 lancé pour l'occasion sur une installation neuve : aucune donnée personnelle, ni GPU ni modèle de langage. ORION y fonctionne donc en mode réduit, ce que l'interface signale en rouge.</p>
+          <p class="o-shots__intro">L'application réelle, branchée sur ORION en production, le 18 novembre 2026. Seules les pages sans donnée personnelle sont montrées.</p>
           <div class="o-shots__grid" id="controlShotsGrid"></div>
         </div>
       </div>
@@ -452,7 +452,8 @@
               <ul class="o-os__list">
                 <li>Affiche l'état d'ORION et ses notifications, en direct</li>
                 <li>Pilote les appareils qui lui sont attribués : lumières (luminosité, teinte), volume</li>
-                <li>Coupe l'écoute à la demande : le mode intimité tient après un redémarrage</li>
+                <li>Coupe l'écoute à la demande : le mode intimité affiche l'état prouvé de chaque micro</li>
+                <li>Un toucher sur le visage ouvre le panneau, qui se referme seul au bout d'un délai</li>
                 <li>N'exécute aucun modèle : toute l'intelligence reste sur le Core</li>
               </ul>
             </div>
@@ -473,18 +474,22 @@
           </p>
         </div>
 
-        <figure class="o-phone reveal" aria-label="Le visage d'ORION sur un terminal ORION OS">
-          <div class="o-phone__pair">
-            <button class="o-phone__shot" type="button" data-i="0" aria-label="Agrandir : terminal, ORION à l'écoute">
-              <span class="o-phone__body"><img src="/assets/orion/terminal-ecoute.webp" alt="Visage d'ORION au format du terminal, en écoute" width="720" height="1480" loading="lazy" decoding="async" /></span>
-              <span class="o-phone__label">À l'écoute</span>
+        <figure class="o-term reveal" aria-label="Captures du terminal ORION OS « BUREAU »">
+          <button class="o-phone__shot o-term__main" type="button" data-i="0" aria-label="Agrandir : le panneau du terminal">
+            <span class="o-term__device"><img src="/assets/orion/terminal-panneau.webp" alt="Panneau du terminal ORION OS : lumières, mode intimité, volume, écran et réglages" width="1560" height="720" loading="lazy" decoding="async" /></span>
+            <span class="o-phone__label">Le panneau, ouvert d'un toucher sur le visage</span>
+          </button>
+          <div class="o-term__side">
+            <button class="o-phone__shot" type="button" data-i="1" aria-label="Agrandir : le visage au repos">
+              <span class="o-term__device"><img src="/assets/orion/terminal-visage.webp" alt="Visage d'ORION en plein écran sur le terminal, en paysage" width="1560" height="720" loading="lazy" decoding="async" /></span>
+              <span class="o-phone__label">Au repos : le visage</span>
             </button>
-            <button class="o-phone__shot" type="button" data-i="1" aria-label="Agrandir : terminal en mode intimité">
-              <span class="o-phone__body"><img src="/assets/orion/terminal-intimite.webp" alt="Visage d'ORION au format du terminal, avec le bandeau Intimité : ORION n'écoute pas" width="720" height="1480" loading="lazy" decoding="async" /></span>
-              <span class="o-phone__label">Mode intimité</span>
+            <button class="o-phone__shot" type="button" data-i="2" aria-label="Agrandir : les réglages du terminal">
+              <span class="o-term__device"><img src="/assets/orion/terminal-reglages.webp" alt="Réglages du terminal : appairage au Core, Wi-Fi, son et luminosité, réseau masqué" width="1560" height="720" loading="lazy" decoding="async" /></span>
+              <span class="o-phone__label">Les réglages</span>
             </button>
           </div>
-          <figcaption>Le visage tel que le Core le sert au terminal (page <code>?terminal=1</code>), capturé au format du téléphone. Les commandes natives d'ORION OS (lumières, volume) ne sont pas montrées ici.</figcaption>
+          <figcaption>Captures prises par adb sur le terminal « BUREAU » (Galaxy A20e sous ORION OS), le 18 novembre 2026. Le nom du réseau Wi-Fi et les adresses sont masqués.</figcaption>
         </figure>
       </div>
     </section>

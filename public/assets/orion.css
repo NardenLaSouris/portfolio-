@@ -600,3 +600,23 @@ code { font-family: var(--mono); font-size: 0.88em; padding: 1px 6px; border-rad
   .o-face { padding: 20px; gap: 24px; }
   .o-face__stage { max-width: 320px; }
 }
+
+/* ---------- Terminal : captures réelles en paysage ---------- */
+.o-os { grid-template-columns: 1fr; }
+.o-term { margin: 8px 0 0; display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.o-term__side { display: grid; gap: 18px; }
+.o-term .o-phone__shot { width: 100%; justify-items: stretch; text-align: left; }
+.o-term__device {
+  display: block; padding: 8px; border-radius: 22px; background: linear-gradient(160deg, #2a2f2c, #121513);
+  border: 1px solid rgba(244, 239, 228, 0.16); box-shadow: 0 24px 50px -26px rgba(0, 0, 0, 0.8);
+  transition: transform 0.35s var(--ease), border-color 0.25s;
+}
+.o-term__device img { display: block; width: 100%; height: auto; border-radius: 15px; }
+.o-term .o-phone__label { padding-left: 4px; }
+.o-term figcaption { grid-column: 1 / -1; max-width: none; margin: 0; text-align: left; font-size: 0.82rem; color: var(--faint); }
+@media (hover: hover) { .o-term .o-phone__shot:hover .o-term__device { transform: translateY(-3px); border-color: var(--gold); } }
+@media (max-width: 760px) {
+  .o-term { grid-template-columns: 1fr; }
+  .o-term__device { padding: 5px; border-radius: 14px; }
+  .o-term__device img { border-radius: 10px; }
+}
