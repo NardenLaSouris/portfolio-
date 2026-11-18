@@ -184,7 +184,6 @@
       ["ORION APPS", "Les applications reliées, leurs permissions et leurs demandes."],
       ["Gaming", "Les consoles, le PC de jeu et le temps de jeu observé."],
       ["Discord", "Le salon vocal du PC, piloté par l'agent Windows."],
-      ["Frag Factory", "L'atelier de clips, vu d'ORION."],
       ["Achats", "Les mandats d'achat et ce qu'ORION en a fait."],
     ]],
     ["ORION Control", [["Paramètres", "La liaison avec le Core et l'apparence de cette application."]]],
@@ -197,10 +196,9 @@
       b.classList.toggle("is-active", b === btn);
       b.setAttribute("aria-pressed", String(b === btn));
     });
-    const index = buttons().indexOf(btn) + 1;
     const siblings = CONTROL.find(([g]) => g === group)[1].filter(([n]) => n !== name);
     controlView.replaceChildren(
-      el("p", { class: "o-window__group" }, `${group} · page ${index} sur ${buttons().length}`),
+      el("p", { class: "o-window__group" }, group),
       el("h4", {}, name),
       el("p", { class: "o-window__desc" }, desc),
       siblings.length
